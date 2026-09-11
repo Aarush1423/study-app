@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study App</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f7;
+      margin: 0;
+      padding: 20px;
+      color: #111;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      margin: 12px 0;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px #00000015;
+    }
+
+    .subject {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .time {
+      color: #666;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: #007aff;
+      color: white;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button.done {
+      background: #34c759;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📚 Study App</h1>
+
+  <div class="card">
+    <div class="subject">🇫🇷 French</div>
+    <div class="time">09:00–09:50</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">🇩🇪 German</div>
+    <div class="time">10:00–10:45</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">➗ Math</div>
+    <div class="time">10:55–11:30</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">🇫🇷 French</div>
+    <div class="time">13:30–14:15</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">🇩🇪 German</div>
+    <div class="time">14:25–15:10</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">➗ Math</div>
+    <div class="time">15:20–15:45</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <div class="card">
+    <div class="subject">🇬🇧 English</div>
+    <div class="time">15:45–16:00</div>
+    <button onclick="complete(this)">Start</button>
+  </div>
+
+  <script>
+    function complete(button) {
+      button.innerText = "✓ Done";
+      button.classList.add("done");
+    }
+  </script>
+
+</body>
+</html>
