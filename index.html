@@ -3,488 +3,504 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f5f5f7">
-
 <title>Study Planner</title>
 
 <style>
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-               "SF Pro Text", Arial, sans-serif;
-  background: #f2f2f7;
-  color: #111;
+               "Segoe UI", sans-serif;
+  background: #f5f5f7;
+  color: #171717;
 }
 
-button, input, select, textarea {
+button, input, textarea {
   font: inherit;
 }
 
 button {
-  border: 0;
   cursor: pointer;
 }
 
 .app {
-  max-width: 650px;
+  max-width: 1100px;
   margin: auto;
   min-height: 100vh;
+  padding: 28px;
 }
 
-/* ---------- HEADER ---------- */
+/* TOP */
 
-header {
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 25px 20px 14px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid #ddd;
-}
-
-.header-top {
+.top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 28px;
 }
 
-h1 {
-  margin: 0;
-  font-size: 30px;
+.logo {
+  font-size: 27px;
+  font-weight: 750;
   letter-spacing: -1px;
 }
 
-.subtitle {
-  color: #777;
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-.date-text {
-  font-size: 13px;
-  color: #777;
-  margin-top: 4px;
-}
-
-.home-button {
-  background: #e5e5ea;
-  border-radius: 12px;
-  padding: 9px 12px;
-  font-size: 14px;
-}
-
-/* ---------- MAIN ---------- */
-
-main {
-  padding: 18px;
-}
-
-.screen {
-  display: none;
-}
-
-.screen.active {
-  display: block;
-}
-
-/* ---------- DAY SELECTOR ---------- */
-
-.day-selector {
+.top-right {
   display: flex;
   gap: 8px;
-  overflow-x: auto;
-  padding: 3px 1px 12px;
-  scrollbar-width: none;
 }
 
-.day-selector::-webkit-scrollbar {
-  display: none;
-}
-
-.day {
-  min-width: 58px;
-  padding: 10px 7px;
-  border-radius: 15px;
+.top-btn {
+  border: 1px solid #ddd;
   background: white;
-  text-align: center;
-  box-shadow: 0 2px 7px #0000000c;
+  border-radius: 12px;
+  padding: 9px 14px;
+  color: #222;
 }
 
-.day-name {
-  font-size: 11px;
+/* NAV */
+
+.nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav button {
+  background: transparent;
+  border: none;
+  padding: 12px 15px;
   color: #777;
   font-weight: 600;
+  border-bottom: 2px solid transparent;
 }
 
-.day-number {
+.nav button.active {
+  color: #111;
+  border-bottom-color: #111;
+}
+
+/* HOME */
+
+.date-title {
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.big-date {
+  font-size: 36px;
+  font-weight: 750;
+  letter-spacing: -1.5px;
+  margin-bottom: 25px;
+}
+
+.section-title {
   font-size: 19px;
   font-weight: 700;
-  margin-top: 3px;
+  margin: 24px 0 12px;
 }
 
-.day.selected {
-  background: #007aff;
-  color: white;
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
-.day.selected .day-name {
-  color: white;
+.task {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  transition: .15s;
 }
 
-/* ---------- STICKY NOTE ---------- */
+.task:hover {
+  transform: translateY(-1px);
+  border-color: #ccc;
+}
 
-.sticky {
-  background: #fff5a8;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 10px 0 18px;
-  box-shadow: 0 5px 15px #00000015;
-  transform: rotate(-.4deg);
+.check {
+  width: 21px;
+  height: 21px;
+  border: 1.5px solid #aaa;
+  border-radius: 50%;
+  background: white;
+  flex-shrink: 0;
+}
+
+.check.done {
+  background: #1f1f1f;
+  border-color: #1f1f1f;
   position: relative;
 }
 
-.sticky::before {
-  content: "";
+.check.done::after {
+  content: "✓";
+  color: white;
+  font-size: 13px;
   position: absolute;
-  width: 70px;
-  height: 18px;
-  background: #ffffff80;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-2deg);
+  left: 4px;
+  top: 1px;
 }
 
-.sticky h2 {
-  margin: 0 0 5px;
-  font-size: 23px;
-}
-
-.sticky p {
-  margin: 0;
-  color: #555;
-}
-
-/* ---------- CARDS ---------- */
-
-.section-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 22px 2px 10px;
-}
-
-.section-title h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.small-button {
-  background: #007aff;
-  color: white;
-  border-radius: 11px;
-  padding: 8px 11px;
-  font-size: 14px;
-}
-
-.card {
-  background: white;
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 11px;
-  box-shadow: 0 2px 9px #00000010;
-}
-
-.card.completed {
-  opacity: .5;
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.card-title {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.card-subject {
-  color: #777;
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-.card-time {
-  margin-top: 8px;
-  color: #666;
-  font-size: 14px;
-}
-
-.card-actions {
-  display: flex;
-  gap: 7px;
-  margin-top: 13px;
-}
-
-.action {
-  padding: 9px 12px;
-  border-radius: 11px;
-  font-size: 14px;
-}
-
-.start {
-  background: #34c759;
-  color: white;
+.task-content {
   flex: 1;
 }
 
-.complete {
-  background: #5856d6;
-  color: white;
-  flex: 1;
+.task-title {
+  font-weight: 650;
 }
 
-.edit {
-  background: #e5e5ea;
-}
-
-.delete {
-  background: #ff3b30;
-  color: white;
-}
-
-/* ---------- HOME BUTTONS ---------- */
-
-.quick-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.quick {
-  background: white;
-  padding: 18px 12px;
-  border-radius: 18px;
-  text-align: left;
-  box-shadow: 0 2px 9px #00000010;
-}
-
-.quick-icon {
-  font-size: 25px;
-}
-
-.quick-title {
-  font-weight: 700;
-  margin-top: 7px;
-}
-
-.quick-text {
+.task-sub {
+  font-size: 13px;
   color: #777;
-  font-size: 12px;
   margin-top: 3px;
 }
 
-/* ---------- EMPTY ---------- */
-
-.empty {
-  background: white;
-  border-radius: 18px;
-  padding: 28px 18px;
-  text-align: center;
-  color: #888;
+.importance {
+  width: 8px;
+  height: 38px;
+  border-radius: 5px;
 }
 
-/* ---------- MODAL ---------- */
+.red { background: #ff3b30; }
+.orange { background: #ff9500; }
+.yellow { background: #ffcc00; }
+.green { background: #34c759; }
 
-.modal {
+.delete {
+  border: none;
+  background: transparent;
+  color: #aaa;
+  font-size: 18px;
+}
+
+/* ADD BUTTON */
+
+.add-main {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 62px;
+  height: 62px;
+  border: none;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  font-size: 31px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
+  z-index: 10;
+}
+
+/* CALENDAR */
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.calendar-title {
+  font-size: 28px;
+  font-weight: 750;
+}
+
+.month-buttons button {
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 10px;
+  width: 38px;
+  height: 36px;
+  margin-left: 5px;
+}
+
+.calendar {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.weekdays,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekday {
+  padding: 12px 5px;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.day {
+  min-height: 105px;
+  padding: 9px;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.day:nth-child(7n) {
+  border-right: none;
+}
+
+.day-number {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.today .day-number {
+  background: #111;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-item {
+  margin-top: 7px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-item.red-bg {
+  background: #ffe5e3;
+  color: #b42318;
+}
+
+.calendar-item.orange-bg {
+  background: #fff0dc;
+  color: #a85c00;
+}
+
+.calendar-item.yellow-bg {
+  background: #fff8cf;
+  color: #8a7200;
+}
+
+.calendar-item.green-bg {
+  background: #e1f8e7;
+  color: #187333;
+}
+
+/* MODAL */
+
+.overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: #00000070;
+  background: rgba(0,0,0,.35);
   z-index: 50;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.modal.show {
-  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-.modal-box {
+.overlay.show {
+  display: flex;
+}
+
+.modal {
+  width: min(480px, 100%);
   background: white;
-  width: 100%;
-  max-width: 500px;
-  border-radius: 25px;
-  padding: 23px;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
   max-height: 90vh;
   overflow-y: auto;
 }
 
-.modal-box h2 {
-  margin-top: 0;
+.modal h2 {
+  margin: 0 0 20px;
+  font-size: 25px;
+}
+
+.add-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.choice {
+  padding: 22px 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.choice:hover {
+  background: #f1f1f1;
+}
+
+.form {
+  display: none;
+}
+
+.form.show {
+  display: block;
 }
 
 label {
   display: block;
-  margin-top: 13px;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
+  color: #666;
+  margin: 13px 0 6px;
 }
 
-input, select, textarea {
+input, textarea, select {
   width: 100%;
-  padding: 13px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  margin-top: 6px;
-  background: white;
-  font-size: 16px;
+  padding: 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  background: #fafafa;
+  outline: none;
 }
 
 textarea {
-  min-height: 90px;
+  min-height: 80px;
   resize: vertical;
 }
 
-.save-button {
-  width: 100%;
-  background: #007aff;
-  color: white;
-  padding: 14px;
-  border-radius: 13px;
-  margin-top: 18px;
-  font-weight: 600;
-}
-
-.cancel-button {
-  width: 100%;
-  background: #e5e5ea;
-  padding: 14px;
-  border-radius: 13px;
-  margin-top: 9px;
-}
-
-/* ---------- TIMER ---------- */
-
-#timerScreen {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: #f2f2f7;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-#timerScreen.show {
-  display: flex;
-}
-
-.timer-box {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
-}
-
-.timer-subject {
-  font-size: 20px;
-  color: #777;
-}
-
-.timer-task {
-  font-size: 27px;
-  font-weight: 700;
-  margin-top: 7px;
-}
-
-.timer-display {
-  font-size: 78px;
-  font-weight: 700;
-  letter-spacing: -3px;
-  margin: 45px 0;
-}
-
-.timer-buttons {
-  display: flex;
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.timer-buttons button {
-  flex: 1;
-  padding: 15px;
-  border-radius: 15px;
-}
-
-.pause {
-  background: #007aff;
-  color: white;
-}
-
-.stop {
-  background: #e5e5ea;
-}
-
-/* ---------- PROGRESS ---------- */
-
-.progress-box {
-  background: white;
-  border-radius: 18px;
-  padding: 16px;
-  margin-top: 12px;
-}
-
-.progress-bar {
-  height: 9px;
-  background: #e5e5ea;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: #34c759;
-  border-radius: 10px;
-  transition: width .3s;
-}
-
-.stats {
+.importance-options {
   display: flex;
-  justify-content: space-between;
-  margin-top: 7px;
-  font-size: 13px;
-  color: #777;
+  gap: 9px;
 }
 
-/* ---------- RESPONSIVE ---------- */
+.imp {
+  width: 42px;
+  height: 38px;
+  border: 2px solid transparent;
+  border-radius: 9px;
+}
 
-@media (max-width: 500px) {
+.imp.selected {
+  border-color: #111;
+}
 
-  main {
-    padding: 14px;
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.cancel {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 11px 16px;
+  border-radius: 10px;
+}
+
+.save {
+  border: none;
+  background: #111;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-weight: 650;
+}
+
+/* DAY DETAILS */
+
+.detail-item {
+  padding: 13px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-title {
+  font-weight: 700;
+}
+
+.detail-info {
+  color: #777;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.type-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #999;
+  margin-bottom: 3px;
+}
+
+/* HIDDEN */
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .app {
+    padding: 18px;
   }
 
-  h1 {
-    font-size: 27px;
+  .big-date {
+    font-size: 30px;
   }
 
-  .timer-display {
-    font-size: 65px;
+  .day {
+    min-height: 75px;
+    padding: 5px;
+  }
+
+  .calendar-item {
+    font-size: 8px;
+  }
+
+  .weekday {
+    font-size: 10px;
+  }
+
+  .add-main {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .nav {
+    overflow-x: auto;
+  }
+
+  .nav button {
+    white-space: nowrap;
   }
 }
 </style>
@@ -494,1069 +510,842 @@ textarea {
 
 <div class="app">
 
-<header>
-  <div class="header-top">
-    <div>
-      <h1>📚 Study Planner</h1>
-      <div class="subtitle">Your school, organized.</div>
-      <div class="date-text" id="headerDate"></div>
-    </div>
-
-    <button class="home-button" onclick="goHome()">
-      🏠 Home
-    </button>
-  </div>
-</header>
-
-<main>
-
-<!-- ================= HOME ================= -->
-
-<section id="homeScreen" class="screen active">
-
-  <div class="day-selector" id="daySelector"></div>
-
-  <div class="sticky">
-    <h2 id="stickyTitle">Today's plan</h2>
-    <p id="stickyText">Everything you need to do today.</p>
-  </div>
-
-  <div class="progress-box">
-    <strong>Today's progress</strong>
-
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-
-    <div class="stats">
-      <span id="progressText">0 of 0 completed</span>
-      <span id="progressPercent">0%</span>
+  <div class="top">
+    <div class="logo">Study Planner</div>
+    <div class="top-right">
+      <button class="top-btn" onclick="goToday()">Today</button>
     </div>
   </div>
 
-  <div class="quick-actions">
+  <div class="nav">
+    <button id="homeNav" class="active" onclick="showPage('home')">Home</button>
+    <button id="calendarNav" onclick="showPage('calendar')">Calendar</button>
+  </div>
 
-    <button class="quick" onclick="openModal('homework')">
-      <div class="quick-icon">📝</div>
-      <div class="quick-title">Add homework</div>
-      <div class="quick-text">School work and tasks</div>
-    </button>
+  <!-- HOME -->
 
-    <button class="quick" onclick="openModal('test')">
-      <div class="quick-icon">🧪</div>
-      <div class="quick-title">Add test</div>
-      <div class="quick-text">Keep track of tests</div>
-    </button>
+  <section id="home" class="page active">
 
-    <button class="quick" onclick="openModal('study')">
-      <div class="quick-icon">📖</div>
-      <div class="quick-title">Add study</div>
-      <div class="quick-text">Create a study session</div>
-    </button>
+    <div class="date-title" id="homeDate"></div>
+    <div class="big-date" id="homeDay"></div>
 
-    <button class="quick" onclick="showCalendar()">
-      <div class="quick-icon">📅</div>
-      <div class="quick-title">Calendar</div>
-      <div class="quick-text">Choose another day</div>
-    </button>
+    <div class="section-title">Your checklist</div>
+
+    <div id="taskList" class="task-list"></div>
+
+  </section>
+
+  <!-- CALENDAR -->
+
+  <section id="calendar" class="page">
+
+    <div class="calendar-head">
+      <div class="calendar-title" id="calendarTitle"></div>
+
+      <div class="month-buttons">
+        <button onclick="changeMonth(-1)">‹</button>
+        <button onclick="changeMonth(1)">›</button>
+      </div>
+    </div>
+
+    <div class="calendar">
+
+      <div class="weekdays">
+        <div class="weekday">MON</div>
+        <div class="weekday">TUE</div>
+        <div class="weekday">WED</div>
+        <div class="weekday">THU</div>
+        <div class="weekday">FRI</div>
+        <div class="weekday">SAT</div>
+        <div class="weekday">SUN</div>
+      </div>
+
+      <div id="calendarDays" class="days"></div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<button class="add-main" onclick="openAdd()">+</button>
+
+
+<!-- ADD MODAL -->
+
+<div id="addOverlay" class="overlay">
+
+  <div class="modal">
+
+    <div id="chooseType">
+
+      <h2>Add</h2>
+
+      <div class="add-choice">
+
+        <button class="choice" onclick="chooseSubject()">
+          📚<br><br>Subject
+        </button>
+
+        <button class="choice" onclick="chooseEvent()">
+          📅<br><br>Event
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUBJECT FORM -->
+
+    <div id="subjectForm" class="form">
+
+      <h2>Add Subject</h2>
+
+      <label>Subject</label>
+      <input id="subjectName" placeholder="e.g. Math">
+
+      <label>What is it?</label>
+      <select id="subjectKind">
+        <option value="Homework">Homework</option>
+        <option value="Test">Test</option>
+        <option value="Study">Study</option>
+      </select>
+
+      <label>Title</label>
+      <input id="subjectTitle" placeholder="e.g. Fractions test">
+
+      <label>Importance</label>
+
+      <div class="importance-options">
+        <button class="imp red selected" onclick="selectImportance('red', this)"></button>
+        <button class="imp orange" onclick="selectImportance('orange', this)"></button>
+        <button class="imp yellow" onclick="selectImportance('yellow', this)"></button>
+        <button class="imp green" onclick="selectImportance('green', this)"></button>
+      </div>
+
+      <div class="row">
+
+        <div>
+          <label>Date</label>
+          <input type="date" id="subjectDate">
+        </div>
+
+        <div>
+          <label>Time</label>
+          <input type="time" id="subjectTime">
+        </div>
+
+      </div>
+
+      <label>Notes</label>
+      <textarea id="subjectNotes" placeholder="Anything you need to remember..."></textarea>
+
+      <div class="modal-actions">
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+        <button class="save" onclick="saveSubject()">Add Subject</button>
+      </div>
+
+    </div>
+
+
+    <!-- EVENT FORM -->
+
+    <div id="eventForm" class="form">
+
+      <h2>Add Event</h2>
+
+      <label>Event</label>
+      <input id="eventName" placeholder="e.g. School trip">
+
+      <label>Location</label>
+      <input id="eventLocation" placeholder="e.g. Zermatt">
+
+      <label>Importance</label>
+
+      <div class="importance-options">
+        <button class="imp red" onclick="selectImportance('red', this)"></button>
+        <button class="imp orange selected" onclick="selectImportance('orange', this)"></button>
+        <button class="imp yellow" onclick="selectImportance('yellow', this)"></button>
+        <button class="imp green" onclick="selectImportance('green', this)"></button>
+      </div>
+
+      <div class="row">
+
+        <div>
+          <label>Date</label>
+          <input type="date" id="eventDate">
+        </div>
+
+        <div>
+          <label>Start</label>
+          <input type="time" id="eventStart">
+        </div>
+
+      </div>
+
+      <label>End</label>
+      <input type="time" id="eventEnd">
+
+      <label>Notes</label>
+      <textarea id="eventNotes" placeholder="Anything you need to remember..."></textarea>
+
+      <div class="modal-actions">
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+        <button class="save" onclick="saveEvent()">Add Event</button>
+      </div>
+
+    </div>
 
   </div>
 
-  <div class="section-title">
-    <h2>📝 Homework</h2>
-    <button class="small-button" onclick="openModal('homework')">＋ Add</button>
-  </div>
-
-  <div id="homeworkList"></div>
-
-  <div class="section-title">
-    <h2>🧪 Tests</h2>
-    <button class="small-button" onclick="openModal('test')">＋ Add</button>
-  </div>
-
-  <div id="testList"></div>
-
-  <div class="section-title">
-    <h2>📖 Study</h2>
-    <button class="small-button" onclick="openModal('study')">＋ Add</button>
-  </div>
-
-  <div id="studyList"></div>
-
-</section>
-
-
-<!-- ================= CALENDAR ================= -->
-
-<section id="calendarScreen" class="screen">
-
-  <button class="home-button" onclick="goHome()">← Back</button>
-
-  <div class="section-title">
-    <h2>📅 Calendar</h2>
-  </div>
-
-  <div class="card">
-    <label>Choose a date</label>
-    <input type="date" id="calendarPicker" onchange="chooseDate()">
-  </div>
-
-</section>
-
-</main>
 </div>
 
 
-<!-- ================= ADD / EDIT MODAL ================= -->
+<!-- DAY DETAILS -->
 
-<div class="modal" id="modal">
+<div id="dayOverlay" class="overlay">
 
-  <div class="modal-box">
+  <div class="modal">
 
-    <h2 id="modalTitle">Add</h2>
+    <h2 id="detailDate"></h2>
 
-    <label>Type</label>
-    <select id="itemType" onchange="changeType()">
-      <option value="homework">📝 Homework</option>
-      <option value="test">🧪 Test</option>
-      <option value="study">📖 Study session</option>
-    </select>
+    <div id="detailList"></div>
 
-    <label>Subject</label>
-    <select id="subject">
-      <option>🇫🇷 French</option>
-      <option>🇩🇪 German</option>
-      <option>➗ Math</option>
-      <option>🇬🇧 English</option>
-      <option>🔬 Science</option>
-      <option>📚 Other</option>
-    </select>
-
-    <label id="titleLabel">What do you need to do?</label>
-    <input id="itemTitle" placeholder="e.g. Learn French vocabulary">
-
-    <label>Notes</label>
-    <textarea id="notes" placeholder="Optional notes..."></textarea>
-
-    <label>Date</label>
-    <input type="date" id="itemDate">
-
-    <div id="timeFields">
-
-      <label>Start time</label>
-      <input type="time" id="startTime" value="17:00">
-
-      <label>End time</label>
-      <input type="time" id="endTime" value="17:30">
-
-    </div>
-
-    <button class="save-button" onclick="saveItem()">
-      Save
-    </button>
-
-    <button class="cancel-button" onclick="closeModal()">
-      Cancel
-    </button>
-
-  </div>
-</div>
-
-
-<!-- ================= TIMER ================= -->
-
-<div id="timerScreen">
-
-  <div class="timer-box">
-
-    <button class="home-button" onclick="stopTimer()">
-      ← Exit
-    </button>
-
-    <div class="timer-subject" id="timerSubject">
-      French
-    </div>
-
-    <div class="timer-task" id="timerTask">
-      Vocabulary
-    </div>
-
-    <div class="timer-display" id="timerDisplay">
-      00:00
-    </div>
-
-    <div class="timer-buttons">
-
-      <button class="pause" id="pauseButton" onclick="pauseTimer()">
-        ⏸ Pause
-      </button>
-
-      <button class="stop" onclick="stopTimer()">
-        Stop
-      </button>
-
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeDay()">Close</button>
     </div>
 
   </div>
+
 </div>
 
 
 <script>
 
-/* =========================================================
-   DATA
-========================================================= */
+let items = JSON.parse(localStorage.getItem("studyPlannerItems") || "[]");
 
-let data = JSON.parse(localStorage.getItem("studyPlannerData")) || {
-  homework: [],
-  tests: [],
-  study: []
-};
+let currentMonth = new Date();
 
-let selectedDate = getToday();
+let selectedImportance = "red";
 
-let editingId = null;
-
-let timerInterval = null;
-let timerSeconds = 0;
-let timerPaused = false;
-let timerItemId = null;
+const today = new Date();
 
 
-/* =========================================================
-   DATE FUNCTIONS
-========================================================= */
-
-function getToday() {
-
-  let d = new Date();
-
-  return d.getFullYear() + "-" +
-    String(d.getMonth() + 1).padStart(2, "0") + "-" +
-    String(d.getDate()).padStart(2, "0");
-
-}
-
-function formatDate(dateString) {
-
-  let d = new Date(dateString + "T12:00:00");
-
-  return d.toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  });
-
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
+/* SAVE */
 
 function saveData() {
+  localStorage.setItem("studyPlannerItems", JSON.stringify(items));
+}
 
-  localStorage.setItem(
-    "studyPlannerData",
-    JSON.stringify(data)
-  );
+
+/* NAVIGATION */
+
+function showPage(page) {
+
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  document.getElementById(page).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(b => {
+    b.classList.remove("active");
+  });
+
+  if (page === "home") {
+    document.getElementById("homeNav").classList.add("active");
+  }
+
+  if (page === "calendar") {
+    document.getElementById("calendarNav").classList.add("active");
+    renderCalendar();
+  }
 
 }
 
 
-/* =========================================================
-   HOME
-========================================================= */
+/* HOME */
 
-function goHome() {
+function renderHome() {
 
-  document.querySelectorAll(".screen")
-    .forEach(x => x.classList.remove("active"));
+  const weekdays = [
+    "Sunday","Monday","Tuesday","Wednesday",
+    "Thursday","Friday","Saturday"
+  ];
 
-  document.getElementById("homeScreen")
-    .classList.add("active");
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
 
-  render();
+  document.getElementById("homeDate").textContent =
+    months[today.getMonth()] + " " +
+    today.getDate() + ", " +
+    today.getFullYear();
 
-}
+  document.getElementById("homeDay").textContent =
+    weekdays[today.getDay()];
 
+  const todayString = formatDate(today);
 
-function showCalendar() {
+  let todaysItems = items.filter(x => x.date === todayString);
 
-  document.querySelectorAll(".screen")
-    .forEach(x => x.classList.remove("active"));
+  todaysItems.sort((a,b) => {
+    return (a.time || "").localeCompare(b.time || "");
+  });
 
-  document.getElementById("calendarScreen")
-    .classList.add("active");
+  const list = document.getElementById("taskList");
 
-  document.getElementById("calendarPicker").value =
-    selectedDate;
+  if (todaysItems.length === 0) {
 
-}
-
-
-/* =========================================================
-   DAY SELECTOR
-========================================================= */
-
-function renderDays() {
-
-  let container =
-    document.getElementById("daySelector");
-
-  container.innerHTML = "";
-
-  let current =
-    new Date(selectedDate + "T12:00:00");
-
-  for (let i = -2; i <= 4; i++) {
-
-    let d = new Date(current);
-
-    d.setDate(current.getDate() + i);
-
-    let date =
-      d.getFullYear() + "-" +
-      String(d.getMonth() + 1).padStart(2, "0") + "-" +
-      String(d.getDate()).padStart(2, "0");
-
-    let div =
-      document.createElement("button");
-
-    div.className =
-      "day " +
-      (date === selectedDate ? "selected" : "");
-
-    div.innerHTML = `
-      <div class="day-name">
-        ${d.toLocaleDateString("en-GB", {
-          weekday: "short"
-        })}
-      </div>
-
-      <div class="day-number">
-        ${d.getDate()}
+    list.innerHTML = `
+      <div style="
+        padding:35px 10px;
+        color:#888;
+        text-align:center;
+      ">
+        Nothing planned for today.
       </div>
     `;
 
-    div.onclick = function() {
-
-      selectedDate = date;
-
-      render();
-
-    };
-
-    container.appendChild(div);
-
-  }
-
-}
-
-
-/* =========================================================
-   RENDER EVERYTHING
-========================================================= */
-
-function render() {
-
-  renderDays();
-
-  document.getElementById("headerDate").innerText =
-    formatDate(selectedDate);
-
-  document.getElementById("stickyTitle").innerText =
-    formatDate(selectedDate);
-
-  renderHomework();
-  renderTests();
-  renderStudy();
-  renderProgress();
-
-}
-
-
-/* =========================================================
-   HOMEWORK
-========================================================= */
-
-function renderHomework() {
-
-  let list =
-    data.homework.filter(
-      x => x.date === selectedDate
-    );
-
-  let container =
-    document.getElementById("homeworkList");
-
-  container.innerHTML = "";
-
-  if (!list.length) {
-
-    container.innerHTML =
-      `<div class="empty">
-        No homework for this day 🎉
-      </div>`;
-
     return;
   }
 
-  list.forEach(item => {
+  list.innerHTML = todaysItems.map(item => {
 
-    container.innerHTML += createCard(
-      item,
-      "homework"
-    );
+    let subtitle = "";
 
-  });
+    if (item.type === "subject") {
+      subtitle =
+        `${item.subject} · ${item.kind}` +
+        (item.time ? ` · ${item.time}` : "");
+    }
 
-}
+    if (item.type === "event") {
+      subtitle =
+        `Event` +
+        (item.location ? ` · ${item.location}` : "") +
+        (item.start ? ` · ${item.start}` : "");
+    }
 
+    return `
+      <div class="task">
 
-/* =========================================================
-   TESTS
-========================================================= */
+        <button
+          class="check ${item.done ? "done" : ""}"
+          onclick="toggleDone('${item.id}')">
+        </button>
 
-function renderTests() {
+        <div class="task-content">
 
-  let list =
-    data.tests.filter(
-      x => x.date === selectedDate
-    );
-
-  let container =
-    document.getElementById("testList");
-
-  container.innerHTML = "";
-
-  if (!list.length) {
-
-    container.innerHTML =
-      `<div class="empty">
-        No tests planned for this day.
-      </div>`;
-
-    return;
-  }
-
-  list.forEach(item => {
-
-    container.innerHTML += createCard(
-      item,
-      "test"
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   STUDY
-========================================================= */
-
-function renderStudy() {
-
-  let list =
-    data.study.filter(
-      x => x.date === selectedDate
-    );
-
-  list.sort((a,b) =>
-    (a.start || "").localeCompare(b.start || "")
-  );
-
-  let container =
-    document.getElementById("studyList");
-
-  container.innerHTML = "";
-
-  if (!list.length) {
-
-    container.innerHTML =
-      `<div class="empty">
-        No study sessions planned.
-      </div>`;
-
-    return;
-  }
-
-  list.forEach(item => {
-
-    container.innerHTML += createCard(
-      item,
-      "study"
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   CARD CREATOR
-========================================================= */
-
-function createCard(item, type) {
-
-  let time = "";
-
-  if (item.start && item.end) {
-
-    time =
-      `<div class="card-time">
-        ⏰ ${item.start} – ${item.end}
-      </div>`;
-
-  }
-
-  let buttons = "";
-
-  if (type === "study" && !item.completed) {
-
-    buttons += `
-      <button class="action start"
-        onclick="startTimer('${item.id}')">
-        ▶ Start
-      </button>
-    `;
-
-  } else if (!item.completed) {
-
-    buttons += `
-      <button class="action complete"
-        onclick="completeItem('${type}','${item.id}')">
-        ✓ Done
-      </button>
-    `;
-
-  } else {
-
-    buttons += `
-      <button class="action complete"
-        onclick="completeItem('${type}','${item.id}')">
-        ✓ Completed
-      </button>
-    `;
-
-  }
-
-  buttons += `
-    <button class="action edit"
-      onclick="editItem('${type}','${item.id}')">
-      ✏️
-    </button>
-
-    <button class="action delete"
-      onclick="deleteItem('${type}','${item.id}')">
-      🗑️
-    </button>
-  `;
-
-  return `
-    <div class="card ${item.completed ? "completed" : ""}">
-
-      <div class="card-top">
-
-        <div>
-          <div class="card-title">
-            ${escapeHTML(item.title)}
+          <div class="task-title">
+            ${escapeHtml(item.title)}
           </div>
 
-          <div class="card-subject">
-            ${escapeHTML(item.subject)}
+          <div class="task-sub">
+            ${escapeHtml(subtitle)}
           </div>
+
         </div>
 
+        <div class="importance ${item.importance}"></div>
+
+        <button
+          class="delete"
+          onclick="deleteItem('${item.id}')">
+          ×
+        </button>
+
       </div>
+    `;
 
-      ${time}
-
-      ${
-        item.notes
-        ?
-        `<div class="card-subject">
-          ${escapeHTML(item.notes)}
-        </div>`
-        :
-        ""
-      }
-
-      <div class="card-actions">
-        ${buttons}
-      </div>
-
-    </div>
-  `;
+  }).join("");
 
 }
 
 
-/* =========================================================
-   PROGRESS
-========================================================= */
+/* CALENDAR */
 
-function renderProgress() {
+function renderCalendar() {
 
-  let all = [
-    ...data.homework,
-    ...data.tests,
-    ...data.study
-  ].filter(x => x.date === selectedDate);
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
 
-  let completed =
-    all.filter(x => x.completed).length;
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
 
-  let percent =
-    all.length
-    ? Math.round(completed / all.length * 100)
-    : 0;
+  document.getElementById("calendarTitle").textContent =
+    months[month] + " " + year;
 
-  document.getElementById("progressFill")
-    .style.width = percent + "%";
+  const firstDay = new Date(year, month, 1);
 
-  document.getElementById("progressText")
-    .innerText =
-      `${completed} of ${all.length} completed`;
+  let startDay = firstDay.getDay();
 
-  document.getElementById("progressPercent")
-    .innerText =
-      percent + "%";
+  // Monday = 0
+  startDay = startDay === 0 ? 6 : startDay - 1;
+
+  const daysInMonth =
+    new Date(year, month + 1, 0).getDate();
+
+  const container =
+    document.getElementById("calendarDays");
+
+  container.innerHTML = "";
+
+  // Empty spaces before first day
+
+  for (let i = 0; i < startDay; i++) {
+    container.innerHTML += `<div class="day"></div>`;
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+
+    const date = new Date(year, month, day);
+    const dateString = formatDate(date);
+
+    const isToday =
+      dateString === formatDate(today);
+
+    const dayItems =
+      items.filter(x => x.date === dateString);
+
+    let html = `
+      <div class="day ${isToday ? "today" : ""}"
+           onclick="openDay('${dateString}')">
+
+        <div class="day-number">${day}</div>
+    `;
+
+    dayItems.slice(0,3).forEach(item => {
+
+      html += `
+        <div class="calendar-item ${item.importance}-bg">
+          ${item.type === "event" ? "📅 " : ""}
+          ${escapeHtml(item.title)}
+        </div>
+      `;
+
+    });
+
+    if (dayItems.length > 3) {
+      html += `
+        <div style="font-size:10px;color:#888;margin-top:4px">
+          +${dayItems.length - 3} more
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+
+    container.innerHTML += html;
+
+  }
 
 }
 
 
-/* =========================================================
-   MODAL
-========================================================= */
+/* MONTH */
 
-function openModal(type) {
+function changeMonth(amount) {
 
-  editingId = null;
+  currentMonth.setMonth(
+    currentMonth.getMonth() + amount
+  );
 
-  document.getElementById("modal")
+  renderCalendar();
+
+}
+
+
+/* TODAY */
+
+function goToday() {
+
+  currentMonth = new Date();
+
+  showPage("home");
+
+}
+
+
+/* ADD */
+
+function openAdd() {
+
+  document.getElementById("addOverlay")
     .classList.add("show");
 
-  document.getElementById("itemType").value =
-    type || "homework";
+  document.getElementById("chooseType")
+    .style.display = "block";
 
-  document.getElementById("itemDate").value =
-    selectedDate;
+  document.getElementById("subjectForm")
+    .classList.remove("show");
 
-  document.getElementById("itemTitle").value = "";
+  document.getElementById("eventForm")
+    .classList.remove("show");
 
-  document.getElementById("notes").value = "";
+}
 
-  document.getElementById("startTime").value =
-    "17:00";
 
-  document.getElementById("endTime").value =
-    "17:30";
+function chooseSubject() {
 
-  document.getElementById("modalTitle").innerText =
-    type === "test"
-      ? "Add test"
-      : type === "study"
-      ? "Add study session"
-      : "Add homework";
+  document.getElementById("chooseType")
+    .style.display = "none";
 
-  changeType();
+  document.getElementById("subjectForm")
+    .classList.add("show");
+
+  selectedImportance = "red";
+
+  const date = formatDate(today);
+
+  document.getElementById("subjectDate").value = date;
+
+}
+
+
+function chooseEvent() {
+
+  document.getElementById("chooseType")
+    .style.display = "none";
+
+  document.getElementById("eventForm")
+    .classList.add("show");
+
+  selectedImportance = "orange";
+
+  document.getElementById("eventDate").value =
+    formatDate(today);
 
 }
 
 
 function closeModal() {
 
-  document.getElementById("modal")
+  document.getElementById("addOverlay")
     .classList.remove("show");
 
 }
 
 
-/* =========================================================
-   TYPE CHANGE
-========================================================= */
+/* IMPORTANCE */
 
-function changeType() {
+function selectImportance(level, button) {
 
-  let type =
-    document.getElementById("itemType").value;
+  selectedImportance = level;
 
-  let timeFields =
-    document.getElementById("timeFields");
+  button.parentElement
+    .querySelectorAll(".imp")
+    .forEach(b => b.classList.remove("selected"));
 
-  timeFields.style.display =
-    type === "study" ? "block" : "none";
-
-  if (type === "homework") {
-
-    document.getElementById("titleLabel")
-      .innerText =
-      "What homework do you have?";
-
-  }
-
-  if (type === "test") {
-
-    document.getElementById("titleLabel")
-      .innerText =
-      "What test is it?";
-
-  }
-
-  if (type === "study") {
-
-    document.getElementById("titleLabel")
-      .innerText =
-      "What are you studying?";
-
-  }
+  button.classList.add("selected");
 
 }
 
 
-/* =========================================================
-   SAVE ITEM
-========================================================= */
+/* SAVE SUBJECT */
 
-function saveItem() {
+function saveSubject() {
 
-  let type =
-    document.getElementById("itemType").value;
+  const subject =
+    document.getElementById("subjectName").value.trim();
 
-  let subject =
-    document.getElementById("subject").value;
+  const title =
+    document.getElementById("subjectTitle").value.trim();
 
-  let title =
-    document.getElementById("itemTitle")
-      .value.trim();
+  const kind =
+    document.getElementById("subjectKind").value;
 
-  let notes =
-    document.getElementById("notes")
-      .value.trim();
+  const date =
+    document.getElementById("subjectDate").value;
 
-  let date =
-    document.getElementById("itemDate").value;
+  const time =
+    document.getElementById("subjectTime").value;
 
-  let start =
-    document.getElementById("startTime").value;
+  const notes =
+    document.getElementById("subjectNotes").value.trim();
 
-  let end =
-    document.getElementById("endTime").value;
+  if (!subject || !title || !date) {
 
-  if (!title) {
-
-    alert("Please enter what you need to do.");
+    alert("Please enter the subject, title and date.");
 
     return;
-
   }
 
-  if (!date) {
+  items.push({
 
-    alert("Please choose a date.");
+    id: Date.now().toString(),
 
-    return;
-
-  }
-
-  let item = {
-
-    id: editingId || Date.now().toString(),
+    type: "subject",
 
     subject,
-
     title,
-
+    kind,
+    date,
+    time,
     notes,
 
-    date,
+    importance: selectedImportance,
 
-    start: type === "study" ? start : "",
+    done: false
 
-    end: type === "study" ? end : "",
-
-    completed: false
-
-  };
-
-
-  if (editingId) {
-
-    let index =
-      data[type].findIndex(
-        x => x.id === editingId
-      );
-
-    if (index !== -1) {
-
-      item.completed =
-        data[type][index].completed;
-
-      data[type][index] = item;
-
-    }
-
-  } else {
-
-    data[type].push(item);
-
-  }
-
-  selectedDate = date;
+  });
 
   saveData();
+
+  clearForms();
 
   closeModal();
 
-  render();
+  renderHome();
+
+  renderCalendar();
 
 }
 
 
-/* =========================================================
-   EDIT
-========================================================= */
+/* SAVE EVENT */
 
-function editItem(type, id) {
+function saveEvent() {
 
-  let item =
-    data[type].find(x => x.id === id);
+  const title =
+    document.getElementById("eventName").value.trim();
 
-  if (!item) return;
+  const location =
+    document.getElementById("eventLocation").value.trim();
 
-  editingId = id;
+  const date =
+    document.getElementById("eventDate").value;
 
-  document.getElementById("modal")
-    .classList.add("show");
+  const start =
+    document.getElementById("eventStart").value;
 
-  document.getElementById("modalTitle")
-    .innerText = "Edit";
+  const end =
+    document.getElementById("eventEnd").value;
 
-  document.getElementById("itemType").value =
-    type;
+  const notes =
+    document.getElementById("eventNotes").value.trim();
 
-  document.getElementById("subject").value =
-    item.subject;
+  if (!title || !date) {
 
-  document.getElementById("itemTitle").value =
-    item.title;
+    alert("Please enter an event name and date.");
 
-  document.getElementById("notes").value =
-    item.notes || "";
+    return;
+  }
 
-  document.getElementById("itemDate").value =
-    item.date;
+  items.push({
 
-  document.getElementById("startTime").value =
-    item.start || "17:00";
+    id: Date.now().toString(),
 
-  document.getElementById("endTime").value =
-    item.end || "17:30";
+    type: "event",
 
-  changeType();
+    title,
+    location,
+    date,
+    start,
+    end,
+    notes,
 
-}
+    importance: selectedImportance,
 
+    done: false
 
-/* =========================================================
-   DELETE
-========================================================= */
-
-function deleteItem(type, id) {
-
-  if (!confirm("Delete this item?")) return;
-
-  data[type] =
-    data[type].filter(
-      x => x.id !== id
-    );
+  });
 
   saveData();
 
-  render();
+  clearForms();
+
+  closeModal();
+
+  renderHome();
+
+  renderCalendar();
 
 }
 
 
-/* =========================================================
-   COMPLETE
-========================================================= */
+/* CLEAR */
 
-function completeItem(type, id) {
+function clearForms() {
 
-  let item =
-    data[type].find(x => x.id === id);
+  document.querySelectorAll(
+    "#subjectForm input, #subjectForm textarea, #eventForm input, #eventForm textarea"
+  ).forEach(input => {
+
+    if (input.type !== "date") {
+      input.value = "";
+    }
+
+  });
+
+}
+
+
+/* COMPLETE */
+
+function toggleDone(id) {
+
+  const item = items.find(x => x.id === id);
 
   if (!item) return;
 
-  item.completed =
-    !item.completed;
+  item.done = !item.done;
 
   saveData();
 
-  render();
+  renderHome();
+
+  renderCalendar();
 
 }
 
 
-/* =========================================================
-   TIMER
-========================================================= */
+/* DELETE */
 
-function startTimer(id) {
+function deleteItem(id) {
 
-  let item =
-    data.study.find(x => x.id === id);
+  items = items.filter(x => x.id !== id);
 
-  if (!item) return;
+  saveData();
 
-  let start =
-    item.start.split(":");
+  renderHome();
 
-  let end =
-    item.end.split(":");
+  renderCalendar();
 
-  let startMinutes =
-    Number(start[0]) * 60 +
-    Number(start[1]);
+}
 
-  let endMinutes =
-    Number(end[0]) * 60 +
-    Number(end[1]);
 
-  timerSeconds =
-    Math.max(
-      60,
-      (endMinutes - startMinutes) * 60
-    );
+/* DAY DETAILS */
 
-  timerItemId = id;
+function openDay(dateString) {
 
-  timerPaused = false;
+  const date = new Date(dateString + "T12:00:00");
 
-  document.getElementById("timerSubject")
-    .innerText =
-    item.subject;
+  const formatted =
+    date.toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    });
 
-  document.getElementById("timerTask")
-    .innerText =
-    item.title;
+  document.getElementById("detailDate").textContent =
+    formatted;
 
-  document.getElementById("timerScreen")
-    .classList.add("show");
+  const dayItems =
+    items.filter(x => x.date === dateString);
 
-  updateTimerDisplay();
+  const list =
+    document.getElementById("detailList");
 
-  clearInterval(timerInterval);
+  if (dayItems.length === 0) {
 
-  timerInterval =
-    setInterval(function() {
+    list.innerHTML =
+      `<div style="color:#888">Nothing planned.</div>`;
 
-      if (timerPaused) return;
+  } else {
 
-      timerSeconds--;
+    list.innerHTML = dayItems.map(item => {
 
-      updateTimerDisplay();
+      if (item.type === "subject") {
 
-      if (timerSeconds <= 0) {
+        return `
+          <div class="detail-item">
 
-        clearInterval(timerInterval);
+            <div class="type-label">Subject</div>
 
-        let finished =
-          data.study.find(
-            x => x.id === timerItemId
-          );
+            <div class="detail-title">
+              ${escapeHtml(item.title)}
+            </div>
 
-        if (finished) {
+            <div class="detail-info">
+              📚 ${escapeHtml(item.subject)}
+              · ${escapeHtml(item.kind)}
+              ${item.time ? " · " + item.time : ""}
+            </div>
 
-          finished.completed = true;
+            ${
+              item.notes
+              ? `<div class="detail-info">
+                   ${escapeHtml(item.notes)}
+                 </div>`
+              : ""
+            }
 
-          saveData();
-
-        }
-
-        alert("🎉 Study session finished!");
-
-        stopTimer();
-
-        render();
+          </div>
+        `;
 
       }
 
-    }, 1000);
+      return `
+        <div class="detail-item">
+
+          <div class="type-label">Event</div>
+
+          <div class="detail-title">
+            📅 ${escapeHtml(item.title)}
+          </div>
+
+          <div class="detail-info">
+            ${item.location ? "📍 " + escapeHtml(item.location) : ""}
+            ${item.start ? " · " + item.start : ""}
+            ${item.end ? "–" + item.end : ""}
+          </div>
+
+          ${
+            item.notes
+            ? `<div class="detail-info">
+                 ${escapeHtml(item.notes)}
+               </div>`
+            : ""
+          }
+
+        </div>
+      `;
+
+    }).join("");
+
+  }
+
+  document.getElementById("dayOverlay")
+    .classList.add("show");
 
 }
 
 
-function updateTimerDisplay() {
+function closeDay() {
 
-  let minutes =
-    Math.floor(timerSeconds / 60);
-
-  let seconds =
-    timerSeconds % 60;
-
-  document.getElementById("timerDisplay")
-    .innerText =
-      String(minutes).padStart(2, "0")
-      + ":" +
-      String(seconds).padStart(2, "0");
-
-}
-
-
-function pauseTimer() {
-
-  timerPaused =
-    !timerPaused;
-
-  document.getElementById("pauseButton")
-    .innerText =
-      timerPaused
-      ? "▶ Resume"
-      : "⏸ Pause";
-
-}
-
-
-function stopTimer() {
-
-  clearInterval(timerInterval);
-
-  timerInterval = null;
-
-  document.getElementById("timerScreen")
+  document.getElementById("dayOverlay")
     .classList.remove("show");
 
 }
 
 
-/* =========================================================
-   CALENDAR
-========================================================= */
+/* DATE */
 
-function chooseDate() {
+function formatDate(date) {
 
-  let value =
-    document.getElementById("calendarPicker")
-      .value;
+  const y = date.getFullYear();
 
-  if (!value) return;
+  const m = String(
+    date.getMonth() + 1
+  ).padStart(2,"0");
 
-  selectedDate = value;
+  const d = String(
+    date.getDate()
+  ).padStart(2,"0");
 
-  goHome();
+  return `${y}-${m}-${d}`;
 
 }
 
 
-/* =========================================================
-   HTML SAFETY
-========================================================= */
+/* SECURITY */
 
-function escapeHTML(text) {
+function escapeHtml(text) {
 
   return String(text || "")
     .replace(/&/g, "&amp;")
@@ -1568,11 +1357,10 @@ function escapeHTML(text) {
 }
 
 
-/* =========================================================
-   START APP
-========================================================= */
+/* START */
 
-render();
+renderHome();
+renderCalendar();
 
 </script>
 
