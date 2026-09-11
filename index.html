@@ -12,13 +12,13 @@
 
 body {
   margin: 0;
+  background: #f7f7f8;
+  color: #171717;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
                "Segoe UI", sans-serif;
-  background: #f5f5f7;
-  color: #171717;
 }
 
-button, input, textarea {
+button, input, textarea, select {
   font: inherit;
 }
 
@@ -27,54 +27,48 @@ button {
 }
 
 .app {
-  max-width: 1100px;
+  max-width: 1050px;
   margin: auto;
+  padding: 25px;
   min-height: 100vh;
-  padding: 28px;
 }
 
-/* TOP */
+/* HEADER */
 
-.top {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 25px;
 }
 
 .logo {
-  font-size: 27px;
+  font-size: 25px;
   font-weight: 750;
   letter-spacing: -1px;
 }
 
-.top-right {
-  display: flex;
-  gap: 8px;
-}
-
-.top-btn {
-  border: 1px solid #ddd;
+.today-button {
   background: white;
-  border-radius: 12px;
-  padding: 9px 14px;
-  color: #222;
+  border: 1px solid #ddd;
+  padding: 9px 15px;
+  border-radius: 10px;
 }
 
 /* NAV */
 
 .nav {
   display: flex;
-  gap: 8px;
-  margin-bottom: 28px;
+  gap: 25px;
   border-bottom: 1px solid #ddd;
+  margin-bottom: 25px;
 }
 
 .nav button {
-  background: transparent;
-  border: none;
-  padding: 12px 15px;
-  color: #777;
+  border: 0;
+  background: none;
+  padding: 10px 2px;
+  color: #888;
   font-weight: 600;
   border-bottom: 2px solid transparent;
 }
@@ -84,74 +78,98 @@ button {
   border-bottom-color: #111;
 }
 
-/* HOME */
+/* DAY NAVIGATION */
 
-.date-title {
-  font-size: 15px;
-  color: #777;
-  margin-bottom: 5px;
+.day-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.big-date {
-  font-size: 36px;
+.day-info {
+  text-align: center;
+}
+
+.day-week {
+  font-size: 13px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+}
+
+.day-number {
+  font-size: 34px;
   font-weight: 750;
   letter-spacing: -1.5px;
-  margin-bottom: 25px;
+  margin-top: 3px;
+}
+
+.arrow {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+/* CHECKLIST */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
-  margin: 24px 0 12px;
+}
+
+.item-count {
+  font-size: 13px;
+  color: #888;
 }
 
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 
 .task {
-  background: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  padding: 14px;
   display: flex;
   align-items: center;
   gap: 13px;
-  transition: .15s;
-}
-
-.task:hover {
-  transform: translateY(-1px);
-  border-color: #ccc;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 13px;
+  padding: 14px;
 }
 
 .check {
   width: 21px;
   height: 21px;
-  border: 1.5px solid #aaa;
   border-radius: 50%;
+  border: 1.5px solid #aaa;
   background: white;
   flex-shrink: 0;
 }
 
 .check.done {
-  background: #1f1f1f;
-  border-color: #1f1f1f;
-  position: relative;
+  background: #111;
+  border-color: #111;
+  color: white;
 }
 
 .check.done::after {
   content: "✓";
-  color: white;
   font-size: 13px;
-  position: absolute;
-  left: 4px;
-  top: 1px;
 }
 
-.task-content {
+.task-main {
   flex: 1;
 }
 
@@ -159,74 +177,74 @@ button {
   font-weight: 650;
 }
 
-.task-sub {
+.task-info {
+  color: #888;
   font-size: 13px;
-  color: #777;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .importance {
-  width: 8px;
-  height: 38px;
+  width: 7px;
+  height: 35px;
   border-radius: 5px;
 }
 
-.red { background: #ff3b30; }
-.orange { background: #ff9500; }
-.yellow { background: #ffcc00; }
-.green { background: #34c759; }
-
-.delete {
-  border: none;
-  background: transparent;
-  color: #aaa;
-  font-size: 18px;
+.red {
+  background: #ff3b30;
 }
 
-/* ADD BUTTON */
+.orange {
+  background: #ff9500;
+}
 
-.add-main {
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  width: 62px;
-  height: 62px;
-  border: none;
-  border-radius: 50%;
-  background: #111;
-  color: white;
-  font-size: 31px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.2);
-  z-index: 10;
+.yellow {
+  background: #ffcc00;
+}
+
+.green {
+  background: #34c759;
+}
+
+.delete {
+  border: 0;
+  background: none;
+  color: #aaa;
+  font-size: 20px;
+}
+
+.empty {
+  padding: 45px 10px;
+  text-align: center;
+  color: #999;
 }
 
 /* CALENDAR */
 
-.calendar-head {
+.calendar-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.calendar-title {
+.calendar-month {
   font-size: 28px;
   font-weight: 750;
 }
 
 .month-buttons button {
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 10px;
   width: 38px;
   height: 36px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 9px;
   margin-left: 5px;
 }
 
 .calendar {
   background: white;
   border: 1px solid #ddd;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
@@ -237,69 +255,89 @@ button {
 }
 
 .weekday {
-  padding: 12px 5px;
   text-align: center;
+  padding: 12px 4px;
+  font-size: 11px;
   color: #888;
-  font-size: 12px;
   border-bottom: 1px solid #eee;
 }
 
-.day {
+.calendar-day {
   min-height: 105px;
-  padding: 9px;
+  padding: 8px;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
 
-.day:nth-child(7n) {
-  border-right: none;
+.calendar-day:nth-child(7n) {
+  border-right: 0;
 }
 
-.day-number {
+.calendar-number {
   font-size: 13px;
   font-weight: 650;
 }
 
-.today .day-number {
+.calendar-day.today .calendar-number {
   background: #111;
   color: white;
-  border-radius: 50%;
   width: 25px;
   height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+}
+
+.calendar-day.selected {
+  background: #f2f2f2;
 }
 
 .calendar-item {
-  margin-top: 7px;
+  margin-top: 6px;
   padding: 4px 6px;
   border-radius: 5px;
   font-size: 10px;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.calendar-item.red-bg {
+.calendar-item.red {
   background: #ffe5e3;
   color: #b42318;
 }
 
-.calendar-item.orange-bg {
+.calendar-item.orange {
   background: #fff0dc;
   color: #a85c00;
 }
 
-.calendar-item.yellow-bg {
+.calendar-item.yellow {
   background: #fff8cf;
-  color: #8a7200;
+  color: #806c00;
 }
 
-.calendar-item.green-bg {
+.calendar-item.green {
   background: #e1f8e7;
   color: #187333;
+}
+
+/* ADD BUTTON */
+
+.add-button {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  font-size: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
 }
 
 /* MODAL */
@@ -309,10 +347,10 @@ button {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.35);
-  z-index: 50;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  z-index: 20;
 }
 
 .overlay.show {
@@ -321,36 +359,29 @@ button {
 
 .modal {
   width: min(480px, 100%);
-  background: white;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
   max-height: 90vh;
   overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
 }
 
 .modal h2 {
-  margin: 0 0 20px;
-  font-size: 25px;
+  margin-top: 0;
 }
 
-.add-choice {
+.choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .choice {
-  padding: 22px 10px;
-  border: 1px solid #ddd;
+  padding: 25px 10px;
   background: #fafafa;
-  border-radius: 15px;
-  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
   font-weight: 650;
-}
-
-.choice:hover {
-  background: #f1f1f1;
 }
 
 .form {
@@ -363,22 +394,24 @@ button {
 
 label {
   display: block;
+  margin: 13px 0 6px;
   font-size: 13px;
   color: #666;
-  margin: 13px 0 6px;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #d7d7d7;
-  border-radius: 10px;
+  border: 1px solid #d5d5d5;
   background: #fafafa;
+  border-radius: 9px;
+  padding: 11px;
   outline: none;
 }
 
 textarea {
-  min-height: 80px;
+  min-height: 75px;
   resize: vertical;
 }
 
@@ -395,16 +428,16 @@ textarea {
 
 .imp {
   width: 42px;
-  height: 38px;
+  height: 36px;
   border: 2px solid transparent;
-  border-radius: 9px;
+  border-radius: 8px;
 }
 
 .imp.selected {
   border-color: #111;
 }
 
-.modal-actions {
+.form-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
@@ -412,51 +445,22 @@ textarea {
 }
 
 .cancel {
-  border: 1px solid #ddd;
   background: white;
-  padding: 11px 16px;
-  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 9px;
 }
 
 .save {
-  border: none;
   background: #111;
   color: white;
-  padding: 11px 18px;
-  border-radius: 10px;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 9px;
   font-weight: 650;
 }
 
-/* DAY DETAILS */
-
-.detail-item {
-  padding: 13px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.detail-item:last-child {
-  border-bottom: none;
-}
-
-.detail-title {
-  font-weight: 700;
-}
-
-.detail-info {
-  color: #777;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.type-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  color: #999;
-  margin-bottom: 3px;
-}
-
-/* HIDDEN */
+/* PAGES */
 
 .page {
   display: none;
@@ -468,16 +472,17 @@ textarea {
 
 /* MOBILE */
 
-@media (max-width: 650px) {
+@media(max-width:650px) {
+
   .app {
     padding: 18px;
   }
 
-  .big-date {
-    font-size: 30px;
+  .day-number {
+    font-size: 28px;
   }
 
-  .day {
+  .calendar-day {
     min-height: 75px;
     padding: 5px;
   }
@@ -486,21 +491,13 @@ textarea {
     font-size: 8px;
   }
 
-  .weekday {
-    font-size: 10px;
-  }
-
-  .add-main {
+  .add-button {
     right: 20px;
     bottom: 20px;
   }
 
   .nav {
-    overflow-x: auto;
-  }
-
-  .nav button {
-    white-space: nowrap;
+    gap: 20px;
   }
 }
 </style>
@@ -510,43 +507,65 @@ textarea {
 
 <div class="app">
 
-  <div class="top">
+  <header class="header">
     <div class="logo">Study Planner</div>
-    <div class="top-right">
-      <button class="top-btn" onclick="goToday()">Today</button>
+    <button class="today-button" onclick="goToday()">Today</button>
+  </header>
+
+  <nav class="nav">
+    <button id="homeNav" class="active" onclick="showPage('home')">
+      Planner
+    </button>
+
+    <button id="calendarNav" onclick="showPage('calendar')">
+      Calendar
+    </button>
+  </nav>
+
+
+  <!-- PLANNER -->
+
+  <main id="home" class="page active">
+
+    <div class="day-navigation">
+
+      <button class="arrow" onclick="changeDay(-1)">‹</button>
+
+      <div class="day-info">
+        <div id="selectedWeekday" class="day-week"></div>
+        <div id="selectedDate" class="day-number"></div>
+      </div>
+
+      <button class="arrow" onclick="changeDay(1)">›</button>
+
     </div>
-  </div>
 
-  <div class="nav">
-    <button id="homeNav" class="active" onclick="showPage('home')">Home</button>
-    <button id="calendarNav" onclick="showPage('calendar')">Calendar</button>
-  </div>
 
-  <!-- HOME -->
-
-  <section id="home" class="page active">
-
-    <div class="date-title" id="homeDate"></div>
-    <div class="big-date" id="homeDay"></div>
-
-    <div class="section-title">Your checklist</div>
+    <div class="section-header">
+      <div class="section-title">Checklist</div>
+      <div id="itemCount" class="item-count"></div>
+    </div>
 
     <div id="taskList" class="task-list"></div>
 
-  </section>
+  </main>
+
 
   <!-- CALENDAR -->
 
-  <section id="calendar" class="page">
+  <main id="calendar" class="page">
 
-    <div class="calendar-head">
-      <div class="calendar-title" id="calendarTitle"></div>
+    <div class="calendar-header">
+
+      <div id="calendarMonth" class="calendar-month"></div>
 
       <div class="month-buttons">
         <button onclick="changeMonth(-1)">‹</button>
         <button onclick="changeMonth(1)">›</button>
       </div>
+
     </div>
+
 
     <div class="calendar">
 
@@ -564,14 +583,15 @@ textarea {
 
     </div>
 
-  </section>
+  </main>
 
 </div>
 
-<button class="add-main" onclick="openAdd()">+</button>
+
+<button class="add-button" onclick="openAdd()">+</button>
 
 
-<!-- ADD MODAL -->
+<!-- ADD WINDOW -->
 
 <div id="addOverlay" class="overlay">
 
@@ -581,14 +601,16 @@ textarea {
 
       <h2>Add</h2>
 
-      <div class="add-choice">
+      <div class="choices">
 
-        <button class="choice" onclick="chooseSubject()">
-          📚<br><br>Subject
+        <button class="choice" onclick="openSubjectForm()">
+          📚<br><br>
+          Subject
         </button>
 
-        <button class="choice" onclick="chooseEvent()">
-          📅<br><br>Event
+        <button class="choice" onclick="openEventForm()">
+          📅<br><br>
+          Event
         </button>
 
       </div>
@@ -596,124 +618,156 @@ textarea {
     </div>
 
 
-    <!-- SUBJECT FORM -->
+    <!-- SUBJECT -->
 
     <div id="subjectForm" class="form">
 
-      <h2>Add Subject</h2>
+      <h2>New Subject</h2>
 
       <label>Subject</label>
-      <input id="subjectName" placeholder="e.g. Math">
-
-      <label>What is it?</label>
-      <select id="subjectKind">
-        <option value="Homework">Homework</option>
-        <option value="Test">Test</option>
-        <option value="Study">Study</option>
-      </select>
+      <input id="subjectName" placeholder="Math">
 
       <label>Title</label>
-      <input id="subjectTitle" placeholder="e.g. Fractions test">
+      <input id="subjectTitle" placeholder="Fractions test">
+
+      <label>Type</label>
+
+      <select id="subjectType">
+        <option value="Test">Test</option>
+        <option value="Homework">Homework</option>
+        <option value="Study">Study</option>
+      </select>
 
       <label>Importance</label>
 
       <div class="importance-options">
-        <button class="imp red selected" onclick="selectImportance('red', this)"></button>
-        <button class="imp orange" onclick="selectImportance('orange', this)"></button>
-        <button class="imp yellow" onclick="selectImportance('yellow', this)"></button>
-        <button class="imp green" onclick="selectImportance('green', this)"></button>
+
+        <button class="imp red selected"
+                onclick="selectImportance('red',this)">
+        </button>
+
+        <button class="imp orange"
+                onclick="selectImportance('orange',this)">
+        </button>
+
+        <button class="imp yellow"
+                onclick="selectImportance('yellow',this)">
+        </button>
+
+        <button class="imp green"
+                onclick="selectImportance('green',this)">
+        </button>
+
       </div>
+
 
       <div class="row">
 
         <div>
           <label>Date</label>
-          <input type="date" id="subjectDate">
+          <input id="subjectDate" type="date">
         </div>
 
         <div>
           <label>Time</label>
-          <input type="time" id="subjectTime">
+          <input id="subjectTime" type="time">
         </div>
 
       </div>
 
-      <label>Notes</label>
-      <textarea id="subjectNotes" placeholder="Anything you need to remember..."></textarea>
 
-      <div class="modal-actions">
-        <button class="cancel" onclick="closeModal()">Cancel</button>
-        <button class="save" onclick="saveSubject()">Add Subject</button>
+      <label>Notes</label>
+      <textarea id="subjectNotes"
+                placeholder="What do you need to remember?"></textarea>
+
+
+      <div class="form-buttons">
+
+        <button class="cancel" onclick="closeModal()">
+          Cancel
+        </button>
+
+        <button class="save" onclick="saveSubject()">
+          Add Subject
+        </button>
+
       </div>
 
     </div>
 
 
-    <!-- EVENT FORM -->
+    <!-- EVENT -->
 
     <div id="eventForm" class="form">
 
-      <h2>Add Event</h2>
+      <h2>New Event</h2>
 
       <label>Event</label>
-      <input id="eventName" placeholder="e.g. School trip">
+      <input id="eventName" placeholder="School trip">
 
       <label>Location</label>
-      <input id="eventLocation" placeholder="e.g. Zermatt">
+      <input id="eventLocation" placeholder="Zermatt">
+
 
       <label>Importance</label>
 
       <div class="importance-options">
-        <button class="imp red" onclick="selectImportance('red', this)"></button>
-        <button class="imp orange selected" onclick="selectImportance('orange', this)"></button>
-        <button class="imp yellow" onclick="selectImportance('yellow', this)"></button>
-        <button class="imp green" onclick="selectImportance('green', this)"></button>
+
+        <button class="imp red"
+                onclick="selectImportance('red',this)">
+        </button>
+
+        <button class="imp orange selected"
+                onclick="selectImportance('orange',this)">
+        </button>
+
+        <button class="imp yellow"
+                onclick="selectImportance('yellow',this)">
+        </button>
+
+        <button class="imp green"
+                onclick="selectImportance('green',this)">
+        </button>
+
       </div>
+
 
       <div class="row">
 
         <div>
           <label>Date</label>
-          <input type="date" id="eventDate">
+          <input id="eventDate" type="date">
         </div>
 
         <div>
           <label>Start</label>
-          <input type="time" id="eventStart">
+          <input id="eventStart" type="time">
         </div>
 
       </div>
 
+
       <label>End</label>
-      <input type="time" id="eventEnd">
+      <input id="eventEnd" type="time">
+
 
       <label>Notes</label>
-      <textarea id="eventNotes" placeholder="Anything you need to remember..."></textarea>
+      <textarea id="eventNotes"
+                placeholder="Anything you need to remember?"></textarea>
 
-      <div class="modal-actions">
-        <button class="cancel" onclick="closeModal()">Cancel</button>
-        <button class="save" onclick="saveEvent()">Add Event</button>
+
+      <div class="form-buttons">
+
+        <button class="cancel" onclick="closeModal()">
+          Cancel
+        </button>
+
+        <button class="save" onclick="saveEvent()">
+          Add Event
+        </button>
+
       </div>
 
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- DAY DETAILS -->
-
-<div id="dayOverlay" class="overlay">
-
-  <div class="modal">
-
-    <h2 id="detailDate"></h2>
-
-    <div id="detailList"></div>
-
-    <div class="modal-actions">
-      <button class="cancel" onclick="closeDay()">Close</button>
     </div>
 
   </div>
@@ -723,113 +777,193 @@ textarea {
 
 <script>
 
-let items = JSON.parse(localStorage.getItem("studyPlannerItems") || "[]");
+/* -----------------------------
+   DATA
+----------------------------- */
 
-let currentMonth = new Date();
+let items = JSON.parse(
+  localStorage.getItem("studyPlannerItems") || "[]"
+);
+
+let selectedDate = new Date();
+
+let calendarDate = new Date();
 
 let selectedImportance = "red";
 
-const today = new Date();
 
+/* -----------------------------
+   BASIC FUNCTIONS
+----------------------------- */
 
-/* SAVE */
+function formatDate(date) {
+
+  const year = date.getFullYear();
+
+  const month = String(
+    date.getMonth() + 1
+  ).padStart(2,"0");
+
+  const day = String(
+    date.getDate()
+  ).padStart(2,"0");
+
+  return `${year}-${month}-${day}`;
+}
+
 
 function saveData() {
-  localStorage.setItem("studyPlannerItems", JSON.stringify(items));
-}
 
-
-/* NAVIGATION */
-
-function showPage(page) {
-
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
-
-  document.getElementById(page).classList.add("active");
-
-  document.querySelectorAll(".nav button").forEach(b => {
-    b.classList.remove("active");
-  });
-
-  if (page === "home") {
-    document.getElementById("homeNav").classList.add("active");
-  }
-
-  if (page === "calendar") {
-    document.getElementById("calendarNav").classList.add("active");
-    renderCalendar();
-  }
+  localStorage.setItem(
+    "studyPlannerItems",
+    JSON.stringify(items)
+  );
 
 }
 
 
-/* HOME */
+function escapeHtml(text) {
 
-function renderHome() {
+  return String(text || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-  const weekdays = [
-    "Sunday","Monday","Tuesday","Wednesday",
-    "Thursday","Friday","Saturday"
-  ];
+}
 
-  const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
-  ];
 
-  document.getElementById("homeDate").textContent =
-    months[today.getMonth()] + " " +
-    today.getDate() + ", " +
-    today.getFullYear();
+/* -----------------------------
+   DAY NAVIGATION
+----------------------------- */
 
-  document.getElementById("homeDay").textContent =
-    weekdays[today.getDay()];
+function changeDay(amount) {
 
-  const todayString = formatDate(today);
+  selectedDate.setDate(
+    selectedDate.getDate() + amount
+  );
 
-  let todaysItems = items.filter(x => x.date === todayString);
+  renderPlanner();
 
-  todaysItems.sort((a,b) => {
-    return (a.time || "").localeCompare(b.time || "");
+}
+
+
+function goToday() {
+
+  selectedDate = new Date();
+
+  calendarDate = new Date();
+
+  renderPlanner();
+
+  renderCalendar();
+
+}
+
+
+/* -----------------------------
+   PLANNER
+----------------------------- */
+
+function renderPlanner() {
+
+  const weekday = selectedDate.toLocaleDateString(
+    "en-US",
+    { weekday:"long" }
+  );
+
+  const date = selectedDate.toLocaleDateString(
+    "en-US",
+    {
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+  document.getElementById(
+    "selectedWeekday"
+  ).textContent = weekday;
+
+  document.getElementById(
+    "selectedDate"
+  ).textContent = date;
+
+
+  const dateString = formatDate(selectedDate);
+
+  let dayItems = items.filter(
+    item => item.date === dateString
+  );
+
+
+  dayItems.sort((a,b) => {
+
+    const timeA =
+      a.time || a.start || "99:99";
+
+    const timeB =
+      b.time || b.start || "99:99";
+
+    return timeA.localeCompare(timeB);
+
   });
 
-  const list = document.getElementById("taskList");
 
-  if (todaysItems.length === 0) {
+  document.getElementById(
+    "itemCount"
+  ).textContent =
+    dayItems.length +
+    (dayItems.length === 1 ? " item" : " items");
+
+
+  const list =
+    document.getElementById("taskList");
+
+
+  if (dayItems.length === 0) {
 
     list.innerHTML = `
-      <div style="
-        padding:35px 10px;
-        color:#888;
-        text-align:center;
-      ">
-        Nothing planned for today.
+      <div class="empty">
+        Nothing planned for this day.
       </div>
     `;
 
     return;
+
   }
 
-  list.innerHTML = todaysItems.map(item => {
 
-    let subtitle = "";
+  list.innerHTML = dayItems.map(item => {
+
+    let info = "";
 
     if (item.type === "subject") {
-      subtitle =
-        `${item.subject} · ${item.kind}` +
-        (item.time ? ` · ${item.time}` : "");
+
+      info =
+        `${escapeHtml(item.subject)} · ` +
+        `${escapeHtml(item.kind)}` +
+        (item.time
+          ? ` · ${escapeHtml(item.time)}`
+          : "");
+
+    } else {
+
+      info =
+        `Event` +
+        (item.location
+          ? ` · ${escapeHtml(item.location)}`
+          : "") +
+        (item.start
+          ? ` · ${escapeHtml(item.start)}`
+          : "");
+
     }
 
-    if (item.type === "event") {
-      subtitle =
-        `Event` +
-        (item.location ? ` · ${item.location}` : "") +
-        (item.start ? ` · ${item.start}` : "");
-    }
 
     return `
+
       <div class="task">
 
         <button
@@ -837,19 +971,24 @@ function renderHome() {
           onclick="toggleDone('${item.id}')">
         </button>
 
-        <div class="task-content">
+
+        <div class="task-main">
 
           <div class="task-title">
+            ${item.type === "event" ? "📅 " : ""}
             ${escapeHtml(item.title)}
           </div>
 
-          <div class="task-sub">
-            ${escapeHtml(subtitle)}
+          <div class="task-info">
+            ${info}
           </div>
 
         </div>
 
-        <div class="importance ${item.importance}"></div>
+
+        <div class="importance ${item.importance}">
+        </div>
+
 
         <button
           class="delete"
@@ -858,6 +997,7 @@ function renderHome() {
         </button>
 
       </div>
+
     `;
 
   }).join("");
@@ -865,78 +1005,137 @@ function renderHome() {
 }
 
 
-/* CALENDAR */
+/* -----------------------------
+   CALENDAR
+----------------------------- */
 
 function renderCalendar() {
 
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
+  const year =
+    calendarDate.getFullYear();
 
-  const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
-  ];
+  const month =
+    calendarDate.getMonth();
 
-  document.getElementById("calendarTitle").textContent =
-    months[month] + " " + year;
 
-  const firstDay = new Date(year, month, 1);
+  document.getElementById(
+    "calendarMonth"
+  ).textContent =
+    calendarDate.toLocaleDateString(
+      "en-US",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
 
-  let startDay = firstDay.getDay();
 
-  // Monday = 0
-  startDay = startDay === 0 ? 6 : startDay - 1;
+  const first =
+    new Date(year,month,1);
+
+
+  let start =
+    first.getDay();
+
+  // Make Monday the first day
+  start =
+    start === 0 ? 6 : start - 1;
+
 
   const daysInMonth =
-    new Date(year, month + 1, 0).getDate();
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
 
   const container =
-    document.getElementById("calendarDays");
+    document.getElementById(
+      "calendarDays"
+    );
+
 
   container.innerHTML = "";
 
-  // Empty spaces before first day
 
-  for (let i = 0; i < startDay; i++) {
-    container.innerHTML += `<div class="day"></div>`;
+  for(let i=0;i<start;i++) {
+
+    container.innerHTML +=
+      `<div class="calendar-day"></div>`;
+
   }
 
-  for (let day = 1; day <= daysInMonth; day++) {
 
-    const date = new Date(year, month, day);
-    const dateString = formatDate(date);
+  for(let day=1;day<=daysInMonth;day++) {
 
-    const isToday =
-      dateString === formatDate(today);
+    const date =
+      new Date(year,month,day);
+
+    const dateString =
+      formatDate(date);
+
 
     const dayItems =
-      items.filter(x => x.date === dateString);
+      items.filter(
+        item => item.date === dateString
+      );
+
+
+    const isToday =
+      dateString === formatDate(new Date());
+
+
+    const isSelected =
+      dateString === formatDate(selectedDate);
+
 
     let html = `
-      <div class="day ${isToday ? "today" : ""}"
-           onclick="openDay('${dateString}')">
 
-        <div class="day-number">${day}</div>
+      <div
+        class="
+          calendar-day
+          ${isToday ? "today" : ""}
+          ${isSelected ? "selected" : ""}
+        "
+        onclick="selectCalendarDay('${dateString}')"
+      >
+
+        <div class="calendar-number">
+          ${day}
+        </div>
+
     `;
+
 
     dayItems.slice(0,3).forEach(item => {
 
       html += `
-        <div class="calendar-item ${item.importance}-bg">
+
+        <div class="calendar-item ${item.importance}">
           ${item.type === "event" ? "📅 " : ""}
           ${escapeHtml(item.title)}
         </div>
+
       `;
 
     });
 
-    if (dayItems.length > 3) {
+
+    if(dayItems.length > 3) {
+
       html += `
-        <div style="font-size:10px;color:#888;margin-top:4px">
+        <div style="
+          font-size:9px;
+          color:#888;
+          margin-top:4px;
+        ">
           +${dayItems.length - 3} more
         </div>
       `;
+
     }
+
 
     html += `</div>`;
 
@@ -947,12 +1146,24 @@ function renderCalendar() {
 }
 
 
-/* MONTH */
+function selectCalendarDay(dateString) {
+
+  selectedDate =
+    new Date(dateString + "T12:00:00");
+
+  renderPlanner();
+
+}
+
+
+/* -----------------------------
+   MONTH NAVIGATION
+----------------------------- */
 
 function changeMonth(amount) {
 
-  currentMonth.setMonth(
-    currentMonth.getMonth() + amount
+  calendarDate.setMonth(
+    calendarDate.getMonth() + amount
   );
 
   renderCalendar();
@@ -960,120 +1171,204 @@ function changeMonth(amount) {
 }
 
 
-/* TODAY */
+/* -----------------------------
+   PAGES
+----------------------------- */
 
-function goToday() {
+function showPage(page) {
 
-  currentMonth = new Date();
+  document.querySelectorAll(".page")
+    .forEach(p =>
+      p.classList.remove("active")
+    );
 
-  showPage("home");
+
+  document.getElementById(page)
+    .classList.add("active");
+
+
+  document.querySelectorAll(".nav button")
+    .forEach(b =>
+      b.classList.remove("active")
+    );
+
+
+  if(page === "home") {
+
+    document.getElementById(
+      "homeNav"
+    ).classList.add("active");
+
+  }
+
+
+  if(page === "calendar") {
+
+    document.getElementById(
+      "calendarNav"
+    ).classList.add("active");
+
+    renderCalendar();
+
+  }
 
 }
 
 
-/* ADD */
+/* -----------------------------
+   ADD
+----------------------------- */
 
 function openAdd() {
 
-  document.getElementById("addOverlay")
-    .classList.add("show");
+  document.getElementById(
+    "addOverlay"
+  ).classList.add("show");
 
-  document.getElementById("chooseType")
-    .style.display = "block";
 
-  document.getElementById("subjectForm")
-    .classList.remove("show");
+  document.getElementById(
+    "chooseType"
+  ).style.display = "block";
 
-  document.getElementById("eventForm")
-    .classList.remove("show");
+
+  document.getElementById(
+    "subjectForm"
+  ).classList.remove("show");
+
+
+  document.getElementById(
+    "eventForm"
+  ).classList.remove("show");
 
 }
 
 
-function chooseSubject() {
+function openSubjectForm() {
 
-  document.getElementById("chooseType")
-    .style.display = "none";
+  document.getElementById(
+    "chooseType"
+  ).style.display = "none";
 
-  document.getElementById("subjectForm")
-    .classList.add("show");
+
+  document.getElementById(
+    "subjectForm"
+  ).classList.add("show");
+
 
   selectedImportance = "red";
 
-  const date = formatDate(today);
 
-  document.getElementById("subjectDate").value = date;
+  document.getElementById(
+    "subjectDate"
+  ).value = formatDate(selectedDate);
 
 }
 
 
-function chooseEvent() {
+function openEventForm() {
 
-  document.getElementById("chooseType")
-    .style.display = "none";
+  document.getElementById(
+    "chooseType"
+  ).style.display = "none";
 
-  document.getElementById("eventForm")
-    .classList.add("show");
+
+  document.getElementById(
+    "eventForm"
+  ).classList.add("show");
+
 
   selectedImportance = "orange";
 
-  document.getElementById("eventDate").value =
-    formatDate(today);
+
+  document.getElementById(
+    "eventDate"
+  ).value = formatDate(selectedDate);
 
 }
 
 
 function closeModal() {
 
-  document.getElementById("addOverlay")
-    .classList.remove("show");
+  document.getElementById(
+    "addOverlay"
+  ).classList.remove("show");
 
 }
 
 
-/* IMPORTANCE */
+/* -----------------------------
+   IMPORTANCE
+----------------------------- */
 
 function selectImportance(level, button) {
 
   selectedImportance = level;
 
+
   button.parentElement
     .querySelectorAll(".imp")
-    .forEach(b => b.classList.remove("selected"));
+    .forEach(b =>
+      b.classList.remove("selected")
+    );
+
 
   button.classList.add("selected");
 
 }
 
 
-/* SAVE SUBJECT */
+/* -----------------------------
+   SAVE SUBJECT
+----------------------------- */
 
 function saveSubject() {
 
   const subject =
-    document.getElementById("subjectName").value.trim();
+    document.getElementById(
+      "subjectName"
+    ).value.trim();
+
 
   const title =
-    document.getElementById("subjectTitle").value.trim();
+    document.getElementById(
+      "subjectTitle"
+    ).value.trim();
+
 
   const kind =
-    document.getElementById("subjectKind").value;
+    document.getElementById(
+      "subjectType"
+    ).value;
+
 
   const date =
-    document.getElementById("subjectDate").value;
+    document.getElementById(
+      "subjectDate"
+    ).value;
+
 
   const time =
-    document.getElementById("subjectTime").value;
+    document.getElementById(
+      "subjectTime"
+    ).value;
+
 
   const notes =
-    document.getElementById("subjectNotes").value.trim();
+    document.getElementById(
+      "subjectNotes"
+    ).value.trim();
 
-  if (!subject || !title || !date) {
 
-    alert("Please enter the subject, title and date.");
+  if(!subject || !title || !date) {
+
+    alert(
+      "Please enter a subject, title and date."
+    );
 
     return;
+
   }
+
 
   items.push({
 
@@ -1081,12 +1376,17 @@ function saveSubject() {
 
     type: "subject",
 
-    subject,
-    title,
-    kind,
-    date,
-    time,
-    notes,
+    subject: subject,
+
+    title: title,
+
+    kind: kind,
+
+    date: date,
+
+    time: time,
+
+    notes: notes,
 
     importance: selectedImportance,
 
@@ -1094,47 +1394,72 @@ function saveSubject() {
 
   });
 
+
   saveData();
 
   clearForms();
 
   closeModal();
 
-  renderHome();
+  renderPlanner();
 
   renderCalendar();
 
 }
 
 
-/* SAVE EVENT */
+/* -----------------------------
+   SAVE EVENT
+----------------------------- */
 
 function saveEvent() {
 
   const title =
-    document.getElementById("eventName").value.trim();
+    document.getElementById(
+      "eventName"
+    ).value.trim();
+
 
   const location =
-    document.getElementById("eventLocation").value.trim();
+    document.getElementById(
+      "eventLocation"
+    ).value.trim();
+
 
   const date =
-    document.getElementById("eventDate").value;
+    document.getElementById(
+      "eventDate"
+    ).value;
+
 
   const start =
-    document.getElementById("eventStart").value;
+    document.getElementById(
+      "eventStart"
+    ).value;
+
 
   const end =
-    document.getElementById("eventEnd").value;
+    document.getElementById(
+      "eventEnd"
+    ).value;
+
 
   const notes =
-    document.getElementById("eventNotes").value.trim();
+    document.getElementById(
+      "eventNotes"
+    ).value.trim();
 
-  if (!title || !date) {
 
-    alert("Please enter an event name and date.");
+  if(!title || !date) {
+
+    alert(
+      "Please enter an event and date."
+    );
 
     return;
+
   }
+
 
   items.push({
 
@@ -1142,12 +1467,17 @@ function saveEvent() {
 
     type: "event",
 
-    title,
-    location,
-    date,
-    start,
-    end,
-    notes,
+    title: title,
+
+    location: location,
+
+    date: date,
+
+    start: start,
+
+    end: end,
+
+    notes: notes,
 
     importance: selectedImportance,
 
@@ -1155,28 +1485,32 @@ function saveEvent() {
 
   });
 
+
   saveData();
 
   clearForms();
 
   closeModal();
 
-  renderHome();
+  renderPlanner();
 
   renderCalendar();
 
 }
 
 
-/* CLEAR */
+/* -----------------------------
+   CLEAR
+----------------------------- */
 
 function clearForms() {
 
   document.querySelectorAll(
-    "#subjectForm input, #subjectForm textarea, #eventForm input, #eventForm textarea"
+    "#subjectForm input, #subjectForm textarea, " +
+    "#eventForm input, #eventForm textarea"
   ).forEach(input => {
 
-    if (input.type !== "date") {
+    if(input.type !== "date") {
       input.value = "";
     }
 
@@ -1185,181 +1519,48 @@ function clearForms() {
 }
 
 
-/* COMPLETE */
+/* -----------------------------
+   CHECK / DELETE
+----------------------------- */
 
 function toggleDone(id) {
 
-  const item = items.find(x => x.id === id);
+  const item =
+    items.find(x => x.id === id);
 
-  if (!item) return;
+  if(!item) return;
 
   item.done = !item.done;
 
   saveData();
 
-  renderHome();
+  renderPlanner();
 
   renderCalendar();
 
 }
 
-
-/* DELETE */
 
 function deleteItem(id) {
 
-  items = items.filter(x => x.id !== id);
+  items =
+    items.filter(x => x.id !== id);
 
   saveData();
 
-  renderHome();
+  renderPlanner();
 
   renderCalendar();
 
 }
 
 
-/* DAY DETAILS */
+/* -----------------------------
+   START
+----------------------------- */
 
-function openDay(dateString) {
+renderPlanner();
 
-  const date = new Date(dateString + "T12:00:00");
-
-  const formatted =
-    date.toLocaleDateString("en-GB", {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
-    });
-
-  document.getElementById("detailDate").textContent =
-    formatted;
-
-  const dayItems =
-    items.filter(x => x.date === dateString);
-
-  const list =
-    document.getElementById("detailList");
-
-  if (dayItems.length === 0) {
-
-    list.innerHTML =
-      `<div style="color:#888">Nothing planned.</div>`;
-
-  } else {
-
-    list.innerHTML = dayItems.map(item => {
-
-      if (item.type === "subject") {
-
-        return `
-          <div class="detail-item">
-
-            <div class="type-label">Subject</div>
-
-            <div class="detail-title">
-              ${escapeHtml(item.title)}
-            </div>
-
-            <div class="detail-info">
-              📚 ${escapeHtml(item.subject)}
-              · ${escapeHtml(item.kind)}
-              ${item.time ? " · " + item.time : ""}
-            </div>
-
-            ${
-              item.notes
-              ? `<div class="detail-info">
-                   ${escapeHtml(item.notes)}
-                 </div>`
-              : ""
-            }
-
-          </div>
-        `;
-
-      }
-
-      return `
-        <div class="detail-item">
-
-          <div class="type-label">Event</div>
-
-          <div class="detail-title">
-            📅 ${escapeHtml(item.title)}
-          </div>
-
-          <div class="detail-info">
-            ${item.location ? "📍 " + escapeHtml(item.location) : ""}
-            ${item.start ? " · " + item.start : ""}
-            ${item.end ? "–" + item.end : ""}
-          </div>
-
-          ${
-            item.notes
-            ? `<div class="detail-info">
-                 ${escapeHtml(item.notes)}
-               </div>`
-            : ""
-          }
-
-        </div>
-      `;
-
-    }).join("");
-
-  }
-
-  document.getElementById("dayOverlay")
-    .classList.add("show");
-
-}
-
-
-function closeDay() {
-
-  document.getElementById("dayOverlay")
-    .classList.remove("show");
-
-}
-
-
-/* DATE */
-
-function formatDate(date) {
-
-  const y = date.getFullYear();
-
-  const m = String(
-    date.getMonth() + 1
-  ).padStart(2,"0");
-
-  const d = String(
-    date.getDate()
-  ).padStart(2,"0");
-
-  return `${y}-${m}-${d}`;
-
-}
-
-
-/* SECURITY */
-
-function escapeHtml(text) {
-
-  return String(text || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-
-/* START */
-
-renderHome();
 renderCalendar();
 
 </script>
