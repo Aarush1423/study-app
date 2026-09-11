@@ -18,7 +18,10 @@ body {
                "Segoe UI", sans-serif;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font: inherit;
 }
 
@@ -55,7 +58,7 @@ button {
   border-radius: 10px;
 }
 
-/* NAV */
+/* NAVIGATION */
 
 .nav {
   display: flex;
@@ -268,6 +271,11 @@ button {
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   cursor: pointer;
+  transition: background .15s;
+}
+
+.calendar-day:hover {
+  background: #f7f7f7;
 }
 
 .calendar-day:nth-child(7n) {
@@ -291,7 +299,7 @@ button {
 }
 
 .calendar-day.selected {
-  background: #f2f2f2;
+  background: #eeeeef;
 }
 
 .calendar-item {
@@ -338,6 +346,7 @@ button {
   color: white;
   font-size: 30px;
   box-shadow: 0 8px 25px rgba(0,0,0,.2);
+  z-index: 10;
 }
 
 /* MODAL */
@@ -507,19 +516,38 @@ textarea {
 
 <div class="app">
 
+  <!-- HEADER -->
+
   <header class="header">
-    <div class="logo">Study Planner</div>
-    <button class="today-button" onclick="goToday()">Today</button>
+
+    <div class="logo">
+      Study Planner
+    </div>
+
+    <button class="today-button" onclick="goToday()">
+      Today
+    </button>
+
   </header>
 
+
+  <!-- NAVIGATION -->
+
   <nav class="nav">
-    <button id="homeNav" class="active" onclick="showPage('home')">
+
+    <button
+      id="homeNav"
+      class="active"
+      onclick="showPage('home')">
       Planner
     </button>
 
-    <button id="calendarNav" onclick="showPage('calendar')">
+    <button
+      id="calendarNav"
+      onclick="showPage('calendar')">
       Calendar
     </button>
+
   </nav>
 
 
@@ -529,24 +557,55 @@ textarea {
 
     <div class="day-navigation">
 
-      <button class="arrow" onclick="changeDay(-1)">‹</button>
+      <button
+        class="arrow"
+        onclick="changeDay(-1)">
+        ‹
+      </button>
+
 
       <div class="day-info">
-        <div id="selectedWeekday" class="day-week"></div>
-        <div id="selectedDate" class="day-number"></div>
+
+        <div
+          id="selectedWeekday"
+          class="day-week">
+        </div>
+
+        <div
+          id="selectedDate"
+          class="day-number">
+        </div>
+
       </div>
 
-      <button class="arrow" onclick="changeDay(1)">›</button>
+
+      <button
+        class="arrow"
+        onclick="changeDay(1)">
+        ›
+      </button>
 
     </div>
 
 
     <div class="section-header">
-      <div class="section-title">Checklist</div>
-      <div id="itemCount" class="item-count"></div>
+
+      <div class="section-title">
+        Checklist
+      </div>
+
+      <div
+        id="itemCount"
+        class="item-count">
+      </div>
+
     </div>
 
-    <div id="taskList" class="task-list"></div>
+
+    <div
+      id="taskList"
+      class="task-list">
+    </div>
 
   </main>
 
@@ -557,11 +616,21 @@ textarea {
 
     <div class="calendar-header">
 
-      <div id="calendarMonth" class="calendar-month"></div>
+      <div
+        id="calendarMonth"
+        class="calendar-month">
+      </div>
 
       <div class="month-buttons">
-        <button onclick="changeMonth(-1)">‹</button>
-        <button onclick="changeMonth(1)">›</button>
+
+        <button onclick="changeMonth(-1)">
+          ‹
+        </button>
+
+        <button onclick="changeMonth(1)">
+          ›
+        </button>
+
       </div>
 
     </div>
@@ -570,6 +639,7 @@ textarea {
     <div class="calendar">
 
       <div class="weekdays">
+
         <div class="weekday">MON</div>
         <div class="weekday">TUE</div>
         <div class="weekday">WED</div>
@@ -577,9 +647,14 @@ textarea {
         <div class="weekday">FRI</div>
         <div class="weekday">SAT</div>
         <div class="weekday">SUN</div>
+
       </div>
 
-      <div id="calendarDays" class="days"></div>
+
+      <div
+        id="calendarDays"
+        class="days">
+      </div>
 
     </div>
 
@@ -588,14 +663,25 @@ textarea {
 </div>
 
 
-<button class="add-button" onclick="openAdd()">+</button>
+<!-- ADD BUTTON -->
+
+<button
+  class="add-button"
+  onclick="openAdd()">
+  +
+</button>
 
 
-<!-- ADD WINDOW -->
+<!-- ADD MODAL -->
 
-<div id="addOverlay" class="overlay">
+<div
+  id="addOverlay"
+  class="overlay">
 
   <div class="modal">
+
+
+    <!-- CHOOSE -->
 
     <div id="chooseType">
 
@@ -603,14 +689,25 @@ textarea {
 
       <div class="choices">
 
-        <button class="choice" onclick="openSubjectForm()">
-          📚<br><br>
+        <button
+          class="choice"
+          onclick="openSubjectForm()">
+
+          📚
+          <br><br>
           Subject
+
         </button>
 
-        <button class="choice" onclick="openEventForm()">
-          📅<br><br>
+
+        <button
+          class="choice"
+          onclick="openEventForm()">
+
+          📅
+          <br><br>
           Event
+
         </button>
 
       </div>
@@ -618,44 +715,79 @@ textarea {
     </div>
 
 
-    <!-- SUBJECT -->
+    <!-- SUBJECT FORM -->
 
-    <div id="subjectForm" class="form">
+    <div
+      id="subjectForm"
+      class="form">
 
       <h2>New Subject</h2>
 
-      <label>Subject</label>
-      <input id="subjectName" placeholder="Math">
 
-      <label>Title</label>
-      <input id="subjectTitle" placeholder="Fractions test">
+      <label>
+        Subject
+      </label>
 
-      <label>Type</label>
+      <input
+        id="subjectName"
+        placeholder="Math">
+
+
+      <label>
+        Title
+      </label>
+
+      <input
+        id="subjectTitle"
+        placeholder="Fractions test">
+
+
+      <label>
+        Type
+      </label>
 
       <select id="subjectType">
-        <option value="Test">Test</option>
-        <option value="Homework">Homework</option>
-        <option value="Study">Study</option>
+
+        <option value="Test">
+          Test
+        </option>
+
+        <option value="Homework">
+          Homework
+        </option>
+
+        <option value="Study">
+          Study
+        </option>
+
       </select>
 
-      <label>Importance</label>
+
+      <label>
+        Importance
+      </label>
+
 
       <div class="importance-options">
 
-        <button class="imp red selected"
-                onclick="selectImportance('red',this)">
+        <button
+          class="imp red selected"
+          onclick="selectImportance('red',this)">
         </button>
 
-        <button class="imp orange"
-                onclick="selectImportance('orange',this)">
+        <button
+          class="imp orange"
+          onclick="selectImportance('orange',this)">
         </button>
 
-        <button class="imp yellow"
-                onclick="selectImportance('yellow',this)">
+        <button
+          class="imp yellow"
+          onclick="selectImportance('yellow',this)">
         </button>
 
-        <button class="imp green"
-                onclick="selectImportance('green',this)">
+        <button
+          class="imp green"
+          onclick="selectImportance('green',this)">
         </button>
 
       </div>
@@ -664,30 +796,54 @@ textarea {
       <div class="row">
 
         <div>
-          <label>Date</label>
-          <input id="subjectDate" type="date">
+
+          <label>
+            Date
+          </label>
+
+          <input
+            id="subjectDate"
+            type="date">
+
         </div>
 
+
         <div>
-          <label>Time</label>
-          <input id="subjectTime" type="time">
+
+          <label>
+            Time
+          </label>
+
+          <input
+            id="subjectTime"
+            type="time">
+
         </div>
 
       </div>
 
 
-      <label>Notes</label>
-      <textarea id="subjectNotes"
-                placeholder="What do you need to remember?"></textarea>
+      <label>
+        Notes
+      </label>
+
+      <textarea
+        id="subjectNotes"
+        placeholder="What do you need to remember?">
+      </textarea>
 
 
       <div class="form-buttons">
 
-        <button class="cancel" onclick="closeModal()">
+        <button
+          class="cancel"
+          onclick="closeModal()">
           Cancel
         </button>
 
-        <button class="save" onclick="saveSubject()">
+        <button
+          class="save"
+          onclick="saveSubject()">
           Add Subject
         </button>
 
@@ -696,37 +852,58 @@ textarea {
     </div>
 
 
-    <!-- EVENT -->
+    <!-- EVENT FORM -->
 
-    <div id="eventForm" class="form">
+    <div
+      id="eventForm"
+      class="form">
 
       <h2>New Event</h2>
 
-      <label>Event</label>
-      <input id="eventName" placeholder="School trip">
 
-      <label>Location</label>
-      <input id="eventLocation" placeholder="Zermatt">
+      <label>
+        Event
+      </label>
+
+      <input
+        id="eventName"
+        placeholder="School trip">
 
 
-      <label>Importance</label>
+      <label>
+        Location
+      </label>
+
+      <input
+        id="eventLocation"
+        placeholder="Zermatt">
+
+
+      <label>
+        Importance
+      </label>
+
 
       <div class="importance-options">
 
-        <button class="imp red"
-                onclick="selectImportance('red',this)">
+        <button
+          class="imp red"
+          onclick="selectImportance('red',this)">
         </button>
 
-        <button class="imp orange selected"
-                onclick="selectImportance('orange',this)">
+        <button
+          class="imp orange selected"
+          onclick="selectImportance('orange',this)">
         </button>
 
-        <button class="imp yellow"
-                onclick="selectImportance('yellow',this)">
+        <button
+          class="imp yellow"
+          onclick="selectImportance('yellow',this)">
         </button>
 
-        <button class="imp green"
-                onclick="selectImportance('green',this)">
+        <button
+          class="imp green"
+          onclick="selectImportance('green',this)">
         </button>
 
       </div>
@@ -735,34 +912,63 @@ textarea {
       <div class="row">
 
         <div>
-          <label>Date</label>
-          <input id="eventDate" type="date">
+
+          <label>
+            Date
+          </label>
+
+          <input
+            id="eventDate"
+            type="date">
+
         </div>
 
+
         <div>
-          <label>Start</label>
-          <input id="eventStart" type="time">
+
+          <label>
+            Start
+          </label>
+
+          <input
+            id="eventStart"
+            type="time">
+
         </div>
 
       </div>
 
 
-      <label>End</label>
-      <input id="eventEnd" type="time">
+      <label>
+        End
+      </label>
+
+      <input
+        id="eventEnd"
+        type="time">
 
 
-      <label>Notes</label>
-      <textarea id="eventNotes"
-                placeholder="Anything you need to remember?"></textarea>
+      <label>
+        Notes
+      </label>
+
+      <textarea
+        id="eventNotes"
+        placeholder="Anything you need to remember?">
+      </textarea>
 
 
       <div class="form-buttons">
 
-        <button class="cancel" onclick="closeModal()">
+        <button
+          class="cancel"
+          onclick="closeModal()">
           Cancel
         </button>
 
-        <button class="save" onclick="saveEvent()">
+        <button
+          class="save"
+          onclick="saveEvent()">
           Add Event
         </button>
 
@@ -777,13 +983,21 @@ textarea {
 
 <script>
 
-/* -----------------------------
+/* =========================================
    DATA
------------------------------ */
+========================================= */
 
 let items = JSON.parse(
   localStorage.getItem("studyPlannerItems") || "[]"
 );
+
+
+/*
+  THIS IS THE IMPORTANT DATE.
+
+  Whatever date is selected here is the date
+  shown on the Planner/Home screen.
+*/
 
 let selectedDate = new Date();
 
@@ -792,21 +1006,22 @@ let calendarDate = new Date();
 let selectedImportance = "red";
 
 
-/* -----------------------------
-   BASIC FUNCTIONS
------------------------------ */
+/* =========================================
+   DATE FUNCTIONS
+========================================= */
 
 function formatDate(date) {
 
-  const year = date.getFullYear();
+  const year =
+    date.getFullYear();
 
-  const month = String(
-    date.getMonth() + 1
-  ).padStart(2,"0");
+  const month =
+    String(date.getMonth() + 1)
+      .padStart(2, "0");
 
-  const day = String(
-    date.getDate()
-  ).padStart(2,"0");
+  const day =
+    String(date.getDate())
+      .padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
@@ -825,18 +1040,18 @@ function saveData() {
 function escapeHtml(text) {
 
   return String(text || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
 
-/* -----------------------------
+/* =========================================
    DAY NAVIGATION
------------------------------ */
+========================================= */
 
 function changeDay(amount) {
 
@@ -844,7 +1059,15 @@ function changeDay(amount) {
     selectedDate.getDate() + amount
   );
 
+  /*
+    Keep calendar on the selected date's month
+  */
+
+  calendarDate = new Date(selectedDate);
+
   renderPlanner();
+
+  renderCalendar();
 
 }
 
@@ -859,52 +1082,72 @@ function goToday() {
 
   renderCalendar();
 
+  showPage("home");
+
 }
 
 
-/* -----------------------------
-   PLANNER
------------------------------ */
+/* =========================================
+   PLANNER / HOME
+========================================= */
 
 function renderPlanner() {
 
-  const weekday = selectedDate.toLocaleDateString(
-    "en-US",
-    { weekday:"long" }
-  );
+  const weekday =
+    selectedDate.toLocaleDateString(
+      "en-US",
+      {
+        weekday: "long"
+      }
+    );
 
-  const date = selectedDate.toLocaleDateString(
-    "en-US",
-    {
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }
-  );
+
+  const date =
+    selectedDate.toLocaleDateString(
+      "en-US",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
 
   document.getElementById(
     "selectedWeekday"
   ).textContent = weekday;
+
 
   document.getElementById(
     "selectedDate"
   ).textContent = date;
 
 
-  const dateString = formatDate(selectedDate);
-
-  let dayItems = items.filter(
-    item => item.date === dateString
-  );
+  const dateString =
+    formatDate(selectedDate);
 
 
-  dayItems.sort((a,b) => {
+  let dayItems =
+    items.filter(
+      item => item.date === dateString
+    );
+
+
+  /*
+    Sort by time
+  */
+
+  dayItems.sort((a, b) => {
 
     const timeA =
-      a.time || a.start || "99:99";
+      a.time ||
+      a.start ||
+      "99:99";
 
     const timeB =
-      b.time || b.start || "99:99";
+      b.time ||
+      b.start ||
+      "99:99";
 
     return timeA.localeCompare(timeB);
 
@@ -915,11 +1158,15 @@ function renderPlanner() {
     "itemCount"
   ).textContent =
     dayItems.length +
-    (dayItems.length === 1 ? " item" : " items");
+    (dayItems.length === 1
+      ? " item"
+      : " items");
 
 
   const list =
-    document.getElementById("taskList");
+    document.getElementById(
+      "taskList"
+    );
 
 
   if (dayItems.length === 0) {
@@ -935,79 +1182,99 @@ function renderPlanner() {
   }
 
 
-  list.innerHTML = dayItems.map(item => {
+  list.innerHTML =
+    dayItems.map(item => {
 
-    let info = "";
-
-    if (item.type === "subject") {
-
-      info =
-        `${escapeHtml(item.subject)} · ` +
-        `${escapeHtml(item.kind)}` +
-        (item.time
-          ? ` · ${escapeHtml(item.time)}`
-          : "");
-
-    } else {
-
-      info =
-        `Event` +
-        (item.location
-          ? ` · ${escapeHtml(item.location)}`
-          : "") +
-        (item.start
-          ? ` · ${escapeHtml(item.start)}`
-          : "");
-
-    }
+      let info = "";
 
 
-    return `
+      if (item.type === "subject") {
 
-      <div class="task">
+        info =
+          `${escapeHtml(item.subject)} · ` +
+          `${escapeHtml(item.kind)}` +
+          (
+            item.time
+              ? ` · ${escapeHtml(item.time)}`
+              : ""
+          );
 
-        <button
-          class="check ${item.done ? "done" : ""}"
-          onclick="toggleDone('${item.id}')">
-        </button>
+      }
 
 
-        <div class="task-main">
+      if (item.type === "event") {
 
-          <div class="task-title">
-            ${item.type === "event" ? "📅 " : ""}
-            ${escapeHtml(item.title)}
+        info =
+          `Event` +
+          (
+            item.location
+              ? ` · ${escapeHtml(item.location)}`
+              : ""
+          ) +
+          (
+            item.start
+              ? ` · ${escapeHtml(item.start)}`
+              : ""
+          );
+
+      }
+
+
+      return `
+
+        <div class="task">
+
+          <button
+            class="check ${item.done ? "done" : ""}"
+            onclick="toggleDone('${item.id}')">
+          </button>
+
+
+          <div class="task-main">
+
+            <div class="task-title">
+
+              ${
+                item.type === "event"
+                  ? "📅 "
+                  : ""
+              }
+
+              ${escapeHtml(item.title)}
+
+            </div>
+
+
+            <div class="task-info">
+              ${info}
+            </div>
+
           </div>
 
-          <div class="task-info">
-            ${info}
+
+          <div
+            class="importance ${item.importance}">
           </div>
+
+
+          <button
+            class="delete"
+            onclick="deleteItem('${item.id}')">
+            ×
+          </button>
 
         </div>
 
+      `;
 
-        <div class="importance ${item.importance}">
-        </div>
-
-
-        <button
-          class="delete"
-          onclick="deleteItem('${item.id}')">
-          ×
-        </button>
-
-      </div>
-
-    `;
-
-  }).join("");
+    }).join("");
 
 }
 
 
-/* -----------------------------
+/* =========================================
    CALENDAR
------------------------------ */
+========================================= */
 
 function renderCalendar() {
 
@@ -1024,22 +1291,35 @@ function renderCalendar() {
     calendarDate.toLocaleDateString(
       "en-US",
       {
-        month:"long",
-        year:"numeric"
+        month: "long",
+        year: "numeric"
       }
     );
 
 
-  const first =
-    new Date(year,month,1);
+  /*
+    Find first weekday.
+
+    JavaScript:
+    Sunday = 0
+    Monday = 1
+    etc.
+
+    We convert it so Monday = 0.
+  */
+
+  const firstDay =
+    new Date(year, month, 1);
 
 
   let start =
-    first.getDay();
+    firstDay.getDay();
 
-  // Make Monday the first day
+
   start =
-    start === 0 ? 6 : start - 1;
+    start === 0
+      ? 6
+      : start - 1;
 
 
   const daysInMonth =
@@ -1059,7 +1339,11 @@ function renderCalendar() {
   container.innerHTML = "";
 
 
-  for(let i=0;i<start;i++) {
+  /*
+    Empty spaces before first day
+  */
+
+  for (let i = 0; i < start; i++) {
 
     container.innerHTML +=
       `<div class="calendar-day"></div>`;
@@ -1067,10 +1351,23 @@ function renderCalendar() {
   }
 
 
-  for(let day=1;day<=daysInMonth;day++) {
+  /*
+    Create every day
+  */
+
+  for (
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ) {
 
     const date =
-      new Date(year,month,day);
+      new Date(
+        year,
+        month,
+        day
+      );
+
 
     const dateString =
       formatDate(date);
@@ -1078,16 +1375,19 @@ function renderCalendar() {
 
     const dayItems =
       items.filter(
-        item => item.date === dateString
+        item =>
+          item.date === dateString
       );
 
 
     const isToday =
-      dateString === formatDate(new Date());
+      dateString ===
+      formatDate(new Date());
 
 
     const isSelected =
-      dateString === formatDate(selectedDate);
+      dateString ===
+      formatDate(selectedDate);
 
 
     let html = `
@@ -1098,7 +1398,9 @@ function renderCalendar() {
           ${isToday ? "today" : ""}
           ${isSelected ? "selected" : ""}
         "
-        onclick="selectCalendarDay('${dateString}')"
+        onclick="
+          selectCalendarDay('${dateString}')
+        "
       >
 
         <div class="calendar-number">
@@ -1108,36 +1410,61 @@ function renderCalendar() {
     `;
 
 
-    dayItems.slice(0,3).forEach(item => {
+    /*
+      Show up to 3 things on each date
+    */
+
+    dayItems
+      .slice(0, 3)
+      .forEach(item => {
+
+        html += `
+
+          <div
+            class="
+              calendar-item
+              ${item.importance}
+            "
+          >
+
+            ${
+              item.type === "event"
+                ? "📅 "
+                : ""
+            }
+
+            ${escapeHtml(item.title)}
+
+          </div>
+
+        `;
+
+      });
+
+
+    if (dayItems.length > 3) {
 
       html += `
 
-        <div class="calendar-item ${item.importance}">
-          ${item.type === "event" ? "📅 " : ""}
-          ${escapeHtml(item.title)}
-        </div>
-
-      `;
-
-    });
-
-
-    if(dayItems.length > 3) {
-
-      html += `
         <div style="
           font-size:9px;
           color:#888;
           margin-top:4px;
         ">
+
           +${dayItems.length - 3} more
+
         </div>
+
       `;
 
     }
 
 
-    html += `</div>`;
+    html += `
+      </div>
+    `;
+
 
     container.innerHTML += html;
 
@@ -1146,19 +1473,60 @@ function renderCalendar() {
 }
 
 
+/*
+  ⭐ IMPORTANT ⭐
+
+  When you click a date on the calendar:
+
+  1. selectedDate becomes that date
+  2. Planner updates
+  3. Calendar updates
+  4. App switches to Planner/Home
+*/
+
 function selectCalendarDay(dateString) {
 
   selectedDate =
-    new Date(dateString + "T12:00:00");
+    new Date(
+      dateString + "T12:00:00"
+    );
+
+
+  /*
+    Make the calendar follow
+    the selected date too.
+  */
+
+  calendarDate =
+    new Date(selectedDate);
+
+
+  /*
+    Update the Home/Planner
+  */
 
   renderPlanner();
+
+
+  /*
+    Update calendar highlighting
+  */
+
+  renderCalendar();
+
+
+  /*
+    ⭐ GO TO HOME/PLANNER ⭐
+  */
+
+  showPage("home");
 
 }
 
 
-/* -----------------------------
+/* =========================================
    MONTH NAVIGATION
------------------------------ */
+========================================= */
 
 function changeMonth(amount) {
 
@@ -1171,42 +1539,49 @@ function changeMonth(amount) {
 }
 
 
-/* -----------------------------
-   PAGES
------------------------------ */
+/* =========================================
+   PAGE NAVIGATION
+========================================= */
 
 function showPage(page) {
 
-  document.querySelectorAll(".page")
-    .forEach(p =>
-      p.classList.remove("active")
-    );
+  document
+    .querySelectorAll(".page")
+    .forEach(p => {
+
+      p.classList.remove("active");
+
+    });
 
 
-  document.getElementById(page)
+  document
+    .getElementById(page)
     .classList.add("active");
 
 
-  document.querySelectorAll(".nav button")
-    .forEach(b =>
-      b.classList.remove("active")
-    );
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+    });
 
 
-  if(page === "home") {
+  if (page === "home") {
 
-    document.getElementById(
-      "homeNav"
-    ).classList.add("active");
+    document
+      .getElementById("homeNav")
+      .classList.add("active");
 
   }
 
 
-  if(page === "calendar") {
+  if (page === "calendar") {
 
-    document.getElementById(
-      "calendarNav"
-    ).classList.add("active");
+    document
+      .getElementById("calendarNav")
+      .classList.add("active");
 
     renderCalendar();
 
@@ -1215,151 +1590,177 @@ function showPage(page) {
 }
 
 
-/* -----------------------------
-   ADD
------------------------------ */
+/* =========================================
+   ADD WINDOW
+========================================= */
 
 function openAdd() {
 
-  document.getElementById(
-    "addOverlay"
-  ).classList.add("show");
+  document
+    .getElementById("addOverlay")
+    .classList.add("show");
 
 
-  document.getElementById(
-    "chooseType"
-  ).style.display = "block";
+  document
+    .getElementById("chooseType")
+    .style.display = "block";
 
 
-  document.getElementById(
-    "subjectForm"
-  ).classList.remove("show");
+  document
+    .getElementById("subjectForm")
+    .classList.remove("show");
 
 
-  document.getElementById(
-    "eventForm"
-  ).classList.remove("show");
+  document
+    .getElementById("eventForm")
+    .classList.remove("show");
 
 }
 
 
 function openSubjectForm() {
 
-  document.getElementById(
-    "chooseType"
-  ).style.display = "none";
+  document
+    .getElementById("chooseType")
+    .style.display = "none";
 
 
-  document.getElementById(
-    "subjectForm"
-  ).classList.add("show");
+  document
+    .getElementById("subjectForm")
+    .classList.add("show");
 
 
   selectedImportance = "red";
 
 
-  document.getElementById(
-    "subjectDate"
-  ).value = formatDate(selectedDate);
+  /*
+    ⭐ USE THE CURRENTLY SELECTED DAY ⭐
+  */
+
+  document
+    .getElementById("subjectDate")
+    .value =
+    formatDate(selectedDate);
 
 }
 
 
 function openEventForm() {
 
-  document.getElementById(
-    "chooseType"
-  ).style.display = "none";
+  document
+    .getElementById("chooseType")
+    .style.display = "none";
 
 
-  document.getElementById(
-    "eventForm"
-  ).classList.add("show");
+  document
+    .getElementById("eventForm")
+    .classList.add("show");
 
 
   selectedImportance = "orange";
 
 
-  document.getElementById(
-    "eventDate"
-  ).value = formatDate(selectedDate);
+  /*
+    ⭐ USE THE CURRENTLY SELECTED DAY ⭐
+  */
+
+  document
+    .getElementById("eventDate")
+    .value =
+    formatDate(selectedDate);
 
 }
 
 
 function closeModal() {
 
-  document.getElementById(
-    "addOverlay"
-  ).classList.remove("show");
+  document
+    .getElementById("addOverlay")
+    .classList.remove("show");
 
 }
 
 
-/* -----------------------------
+/* =========================================
    IMPORTANCE
------------------------------ */
+========================================= */
 
-function selectImportance(level, button) {
+function selectImportance(
+  level,
+  button
+) {
 
   selectedImportance = level;
 
 
   button.parentElement
     .querySelectorAll(".imp")
-    .forEach(b =>
-      b.classList.remove("selected")
-    );
+    .forEach(b => {
+
+      b.classList.remove(
+        "selected"
+      );
+
+    });
 
 
-  button.classList.add("selected");
+  button.classList.add(
+    "selected"
+  );
 
 }
 
 
-/* -----------------------------
+/* =========================================
    SAVE SUBJECT
------------------------------ */
+========================================= */
 
 function saveSubject() {
 
   const subject =
-    document.getElementById(
-      "subjectName"
-    ).value.trim();
+    document
+      .getElementById("subjectName")
+      .value
+      .trim();
 
 
   const title =
-    document.getElementById(
-      "subjectTitle"
-    ).value.trim();
+    document
+      .getElementById("subjectTitle")
+      .value
+      .trim();
 
 
   const kind =
-    document.getElementById(
-      "subjectType"
-    ).value;
+    document
+      .getElementById("subjectType")
+      .value;
 
 
   const date =
-    document.getElementById(
-      "subjectDate"
-    ).value;
+    document
+      .getElementById("subjectDate")
+      .value;
 
 
   const time =
-    document.getElementById(
-      "subjectTime"
-    ).value;
+    document
+      .getElementById("subjectTime")
+      .value;
 
 
   const notes =
-    document.getElementById(
-      "subjectNotes"
-    ).value.trim();
+    document
+      .getElementById("subjectNotes")
+      .value
+      .trim();
 
 
-  if(!subject || !title || !date) {
+  if (
+    !subject ||
+    !title ||
+    !date
+  ) {
 
     alert(
       "Please enter a subject, title and date."
@@ -1372,25 +1773,35 @@ function saveSubject() {
 
   items.push({
 
-    id: Date.now().toString(),
+    id:
+      Date.now().toString(),
 
-    type: "subject",
+    type:
+      "subject",
 
-    subject: subject,
+    subject:
+      subject,
 
-    title: title,
+    title:
+      title,
 
-    kind: kind,
+    kind:
+      kind,
 
-    date: date,
+    date:
+      date,
 
-    time: time,
+    time:
+      time,
 
-    notes: notes,
+    notes:
+      notes,
 
-    importance: selectedImportance,
+    importance:
+      selectedImportance,
 
-    done: false
+    done:
+      false
 
   });
 
@@ -1401,6 +1812,20 @@ function saveSubject() {
 
   closeModal();
 
+  /*
+    Make sure the Planner
+    switches to the item's date.
+  */
+
+  selectedDate =
+    new Date(
+      date + "T12:00:00"
+    );
+
+  calendarDate =
+    new Date(selectedDate);
+
+
   renderPlanner();
 
   renderCalendar();
@@ -1408,49 +1833,52 @@ function saveSubject() {
 }
 
 
-/* -----------------------------
+/* =========================================
    SAVE EVENT
------------------------------ */
+========================================= */
 
 function saveEvent() {
 
   const title =
-    document.getElementById(
-      "eventName"
-    ).value.trim();
+    document
+      .getElementById("eventName")
+      .value
+      .trim();
 
 
   const location =
-    document.getElementById(
-      "eventLocation"
-    ).value.trim();
+    document
+      .getElementById("eventLocation")
+      .value
+      .trim();
 
 
   const date =
-    document.getElementById(
-      "eventDate"
-    ).value;
+    document
+      .getElementById("eventDate")
+      .value;
 
 
   const start =
-    document.getElementById(
-      "eventStart"
-    ).value;
+    document
+      .getElementById("eventStart")
+      .value;
 
 
   const end =
-    document.getElementById(
-      "eventEnd"
-    ).value;
+    document
+      .getElementById("eventEnd")
+      .value;
 
 
   const notes =
-    document.getElementById(
-      "eventNotes"
-    ).value.trim();
+    document
+      .getElementById("eventNotes")
+      .value
+      .trim();
 
 
-  if(!title || !date) {
+  if (!title || !date) {
 
     alert(
       "Please enter an event and date."
@@ -1463,25 +1891,35 @@ function saveEvent() {
 
   items.push({
 
-    id: Date.now().toString(),
+    id:
+      Date.now().toString(),
 
-    type: "event",
+    type:
+      "event",
 
-    title: title,
+    title:
+      title,
 
-    location: location,
+    location:
+      location,
 
-    date: date,
+    date:
+      date,
 
-    start: start,
+    start:
+      start,
 
-    end: end,
+    end:
+      end,
 
-    notes: notes,
+    notes:
+      notes,
 
-    importance: selectedImportance,
+    importance:
+      selectedImportance,
 
-    done: false
+    done:
+      false
 
   });
 
@@ -1492,6 +1930,21 @@ function saveEvent() {
 
   closeModal();
 
+
+  /*
+    Switch Planner
+    to the event's date.
+  */
+
+  selectedDate =
+    new Date(
+      date + "T12:00:00"
+    );
+
+  calendarDate =
+    new Date(selectedDate);
+
+
   renderPlanner();
 
   renderCalendar();
@@ -1499,38 +1952,52 @@ function saveEvent() {
 }
 
 
-/* -----------------------------
-   CLEAR
------------------------------ */
+/* =========================================
+   CLEAR FORMS
+========================================= */
 
 function clearForms() {
 
-  document.querySelectorAll(
-    "#subjectForm input, #subjectForm textarea, " +
-    "#eventForm input, #eventForm textarea"
-  ).forEach(input => {
+  document
+    .querySelectorAll(
+      "#subjectForm input, " +
+      "#subjectForm textarea, " +
+      "#eventForm input, " +
+      "#eventForm textarea"
+    )
+    .forEach(input => {
 
-    if(input.type !== "date") {
-      input.value = "";
-    }
+      if (
+        input.type !== "date"
+      ) {
 
-  });
+        input.value = "";
+
+      }
+
+    });
 
 }
 
 
-/* -----------------------------
-   CHECK / DELETE
------------------------------ */
+/* =========================================
+   CHECK OFF
+========================================= */
 
 function toggleDone(id) {
 
   const item =
-    items.find(x => x.id === id);
+    items.find(
+      x => x.id === id
+    );
 
-  if(!item) return;
 
-  item.done = !item.done;
+  if (!item) return;
+
+
+  item.done =
+    !item.done;
+
 
   saveData();
 
@@ -1540,11 +2007,18 @@ function toggleDone(id) {
 
 }
 
+
+/* =========================================
+   DELETE
+========================================= */
 
 function deleteItem(id) {
 
   items =
-    items.filter(x => x.id !== id);
+    items.filter(
+      x => x.id !== id
+    );
+
 
   saveData();
 
@@ -1555,9 +2029,9 @@ function deleteItem(id) {
 }
 
 
-/* -----------------------------
-   START
------------------------------ */
+/* =========================================
+   START APP
+========================================= */
 
 renderPlanner();
 
