@@ -1,109 +1,1580 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f5f5f7">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f7;
-      margin: 0;
-      padding: 20px;
-      color: #111;
-    }
+<title>Study Planner</title>
 
-    h1 {
-      text-align: center;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    .card {
-      background: white;
-      padding: 18px;
-      margin: 12px 0;
-      border-radius: 18px;
-      box-shadow: 0 2px 8px #00000015;
-    }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "SF Pro Text", Arial, sans-serif;
+  background: #f2f2f7;
+  color: #111;
+}
 
-    .subject {
-      font-size: 20px;
-      font-weight: bold;
-    }
+button, input, select, textarea {
+  font: inherit;
+}
 
-    .time {
-      color: #666;
-      margin-top: 5px;
-    }
+button {
+  border: 0;
+  cursor: pointer;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      background: #007aff;
-      color: white;
-      font-size: 16px;
-      margin-top: 10px;
-    }
+.app {
+  max-width: 650px;
+  margin: auto;
+  min-height: 100vh;
+}
 
-    button.done {
-      background: #34c759;
-    }
-  </style>
+/* ---------- HEADER ---------- */
+
+header {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 25px 20px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  color: #777;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.date-text {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.home-button {
+  background: #e5e5ea;
+  border-radius: 12px;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+
+/* ---------- MAIN ---------- */
+
+main {
+  padding: 18px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* ---------- DAY SELECTOR ---------- */
+
+.day-selector {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 3px 1px 12px;
+  scrollbar-width: none;
+}
+
+.day-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.day {
+  min-width: 58px;
+  padding: 10px 7px;
+  border-radius: 15px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 2px 7px #0000000c;
+}
+
+.day-name {
+  font-size: 11px;
+  color: #777;
+  font-weight: 600;
+}
+
+.day-number {
+  font-size: 19px;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+.day.selected {
+  background: #007aff;
+  color: white;
+}
+
+.day.selected .day-name {
+  color: white;
+}
+
+/* ---------- STICKY NOTE ---------- */
+
+.sticky {
+  background: #fff5a8;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px 0 18px;
+  box-shadow: 0 5px 15px #00000015;
+  transform: rotate(-.4deg);
+  position: relative;
+}
+
+.sticky::before {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 18px;
+  background: #ffffff80;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+.sticky h2 {
+  margin: 0 0 5px;
+  font-size: 23px;
+}
+
+.sticky p {
+  margin: 0;
+  color: #555;
+}
+
+/* ---------- CARDS ---------- */
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 22px 2px 10px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.small-button {
+  background: #007aff;
+  color: white;
+  border-radius: 11px;
+  padding: 8px 11px;
+  font-size: 14px;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 11px;
+  box-shadow: 0 2px 9px #00000010;
+}
+
+.card.completed {
+  opacity: .5;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card-subject {
+  color: #777;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.card-time {
+  margin-top: 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.action {
+  padding: 9px 12px;
+  border-radius: 11px;
+  font-size: 14px;
+}
+
+.start {
+  background: #34c759;
+  color: white;
+  flex: 1;
+}
+
+.complete {
+  background: #5856d6;
+  color: white;
+  flex: 1;
+}
+
+.edit {
+  background: #e5e5ea;
+}
+
+.delete {
+  background: #ff3b30;
+  color: white;
+}
+
+/* ---------- HOME BUTTONS ---------- */
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quick {
+  background: white;
+  padding: 18px 12px;
+  border-radius: 18px;
+  text-align: left;
+  box-shadow: 0 2px 9px #00000010;
+}
+
+.quick-icon {
+  font-size: 25px;
+}
+
+.quick-title {
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+.quick-text {
+  color: #777;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* ---------- EMPTY ---------- */
+
+.empty {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 18px;
+  text-align: center;
+  color: #888;
+}
+
+/* ---------- MODAL ---------- */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #00000070;
+  z-index: 50;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 25px;
+  padding: 23px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-box h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin-top: 13px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-top: 6px;
+  background: white;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.save-button {
+  width: 100%;
+  background: #007aff;
+  color: white;
+  padding: 14px;
+  border-radius: 13px;
+  margin-top: 18px;
+  font-weight: 600;
+}
+
+.cancel-button {
+  width: 100%;
+  background: #e5e5ea;
+  padding: 14px;
+  border-radius: 13px;
+  margin-top: 9px;
+}
+
+/* ---------- TIMER ---------- */
+
+#timerScreen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #f2f2f7;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#timerScreen.show {
+  display: flex;
+}
+
+.timer-box {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.timer-subject {
+  font-size: 20px;
+  color: #777;
+}
+
+.timer-task {
+  font-size: 27px;
+  font-weight: 700;
+  margin-top: 7px;
+}
+
+.timer-display {
+  font-size: 78px;
+  font-weight: 700;
+  letter-spacing: -3px;
+  margin: 45px 0;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.timer-buttons button {
+  flex: 1;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.pause {
+  background: #007aff;
+  color: white;
+}
+
+.stop {
+  background: #e5e5ea;
+}
+
+/* ---------- PROGRESS ---------- */
+
+.progress-box {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.progress-bar {
+  height: 9px;
+  background: #e5e5ea;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #34c759;
+  border-radius: 10px;
+  transition: width .3s;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 500px) {
+
+  main {
+    padding: 14px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .timer-display {
+    font-size: 65px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <h1>📚 Study App</h1>
+<div class="app">
 
-  <div class="card">
-    <div class="subject">🇫🇷 French</div>
-    <div class="time">09:00–09:50</div>
-    <button onclick="complete(this)">Start</button>
+<header>
+  <div class="header-top">
+    <div>
+      <h1>📚 Study Planner</h1>
+      <div class="subtitle">Your school, organized.</div>
+      <div class="date-text" id="headerDate"></div>
+    </div>
+
+    <button class="home-button" onclick="goHome()">
+      🏠 Home
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+
+<section id="homeScreen" class="screen active">
+
+  <div class="day-selector" id="daySelector"></div>
+
+  <div class="sticky">
+    <h2 id="stickyTitle">Today's plan</h2>
+    <p id="stickyText">Everything you need to do today.</p>
+  </div>
+
+  <div class="progress-box">
+    <strong>Today's progress</strong>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="stats">
+      <span id="progressText">0 of 0 completed</span>
+      <span id="progressPercent">0%</span>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+
+    <button class="quick" onclick="openModal('homework')">
+      <div class="quick-icon">📝</div>
+      <div class="quick-title">Add homework</div>
+      <div class="quick-text">School work and tasks</div>
+    </button>
+
+    <button class="quick" onclick="openModal('test')">
+      <div class="quick-icon">🧪</div>
+      <div class="quick-title">Add test</div>
+      <div class="quick-text">Keep track of tests</div>
+    </button>
+
+    <button class="quick" onclick="openModal('study')">
+      <div class="quick-icon">📖</div>
+      <div class="quick-title">Add study</div>
+      <div class="quick-text">Create a study session</div>
+    </button>
+
+    <button class="quick" onclick="showCalendar()">
+      <div class="quick-icon">📅</div>
+      <div class="quick-title">Calendar</div>
+      <div class="quick-text">Choose another day</div>
+    </button>
+
+  </div>
+
+  <div class="section-title">
+    <h2>📝 Homework</h2>
+    <button class="small-button" onclick="openModal('homework')">＋ Add</button>
+  </div>
+
+  <div id="homeworkList"></div>
+
+  <div class="section-title">
+    <h2>🧪 Tests</h2>
+    <button class="small-button" onclick="openModal('test')">＋ Add</button>
+  </div>
+
+  <div id="testList"></div>
+
+  <div class="section-title">
+    <h2>📖 Study</h2>
+    <button class="small-button" onclick="openModal('study')">＋ Add</button>
+  </div>
+
+  <div id="studyList"></div>
+
+</section>
+
+
+<!-- ================= CALENDAR ================= -->
+
+<section id="calendarScreen" class="screen">
+
+  <button class="home-button" onclick="goHome()">← Back</button>
+
+  <div class="section-title">
+    <h2>📅 Calendar</h2>
   </div>
 
   <div class="card">
-    <div class="subject">🇩🇪 German</div>
-    <div class="time">10:00–10:45</div>
-    <button onclick="complete(this)">Start</button>
+    <label>Choose a date</label>
+    <input type="date" id="calendarPicker" onchange="chooseDate()">
   </div>
 
-  <div class="card">
-    <div class="subject">➗ Math</div>
-    <div class="time">10:55–11:30</div>
-    <button onclick="complete(this)">Start</button>
-  </div>
+</section>
 
-  <div class="card">
-    <div class="subject">🇫🇷 French</div>
-    <div class="time">13:30–14:15</div>
-    <button onclick="complete(this)">Start</button>
-  </div>
+</main>
+</div>
 
-  <div class="card">
-    <div class="subject">🇩🇪 German</div>
-    <div class="time">14:25–15:10</div>
-    <button onclick="complete(this)">Start</button>
-  </div>
 
-  <div class="card">
-    <div class="subject">➗ Math</div>
-    <div class="time">15:20–15:45</div>
-    <button onclick="complete(this)">Start</button>
-  </div>
+<!-- ================= ADD / EDIT MODAL ================= -->
 
-  <div class="card">
-    <div class="subject">🇬🇧 English</div>
-    <div class="time">15:45–16:00</div>
-    <button onclick="complete(this)">Start</button>
-  </div>
+<div class="modal" id="modal">
 
-  <script>
-    function complete(button) {
-      button.innerText = "✓ Done";
-      button.classList.add("done");
+  <div class="modal-box">
+
+    <h2 id="modalTitle">Add</h2>
+
+    <label>Type</label>
+    <select id="itemType" onchange="changeType()">
+      <option value="homework">📝 Homework</option>
+      <option value="test">🧪 Test</option>
+      <option value="study">📖 Study session</option>
+    </select>
+
+    <label>Subject</label>
+    <select id="subject">
+      <option>🇫🇷 French</option>
+      <option>🇩🇪 German</option>
+      <option>➗ Math</option>
+      <option>🇬🇧 English</option>
+      <option>🔬 Science</option>
+      <option>📚 Other</option>
+    </select>
+
+    <label id="titleLabel">What do you need to do?</label>
+    <input id="itemTitle" placeholder="e.g. Learn French vocabulary">
+
+    <label>Notes</label>
+    <textarea id="notes" placeholder="Optional notes..."></textarea>
+
+    <label>Date</label>
+    <input type="date" id="itemDate">
+
+    <div id="timeFields">
+
+      <label>Start time</label>
+      <input type="time" id="startTime" value="17:00">
+
+      <label>End time</label>
+      <input type="time" id="endTime" value="17:30">
+
+    </div>
+
+    <button class="save-button" onclick="saveItem()">
+      Save
+    </button>
+
+    <button class="cancel-button" onclick="closeModal()">
+      Cancel
+    </button>
+
+  </div>
+</div>
+
+
+<!-- ================= TIMER ================= -->
+
+<div id="timerScreen">
+
+  <div class="timer-box">
+
+    <button class="home-button" onclick="stopTimer()">
+      ← Exit
+    </button>
+
+    <div class="timer-subject" id="timerSubject">
+      French
+    </div>
+
+    <div class="timer-task" id="timerTask">
+      Vocabulary
+    </div>
+
+    <div class="timer-display" id="timerDisplay">
+      00:00
+    </div>
+
+    <div class="timer-buttons">
+
+      <button class="pause" id="pauseButton" onclick="pauseTimer()">
+        ⏸ Pause
+      </button>
+
+      <button class="stop" onclick="stopTimer()">
+        Stop
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let data = JSON.parse(localStorage.getItem("studyPlannerData")) || {
+  homework: [],
+  tests: [],
+  study: []
+};
+
+let selectedDate = getToday();
+
+let editingId = null;
+
+let timerInterval = null;
+let timerSeconds = 0;
+let timerPaused = false;
+let timerItemId = null;
+
+
+/* =========================================================
+   DATE FUNCTIONS
+========================================================= */
+
+function getToday() {
+
+  let d = new Date();
+
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
+
+}
+
+function formatDate(dateString) {
+
+  let d = new Date(dateString + "T12:00:00");
+
+  return d.toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  });
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveData() {
+
+  localStorage.setItem(
+    "studyPlannerData",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome() {
+
+  document.querySelectorAll(".screen")
+    .forEach(x => x.classList.remove("active"));
+
+  document.getElementById("homeScreen")
+    .classList.add("active");
+
+  render();
+
+}
+
+
+function showCalendar() {
+
+  document.querySelectorAll(".screen")
+    .forEach(x => x.classList.remove("active"));
+
+  document.getElementById("calendarScreen")
+    .classList.add("active");
+
+  document.getElementById("calendarPicker").value =
+    selectedDate;
+
+}
+
+
+/* =========================================================
+   DAY SELECTOR
+========================================================= */
+
+function renderDays() {
+
+  let container =
+    document.getElementById("daySelector");
+
+  container.innerHTML = "";
+
+  let current =
+    new Date(selectedDate + "T12:00:00");
+
+  for (let i = -2; i <= 4; i++) {
+
+    let d = new Date(current);
+
+    d.setDate(current.getDate() + i);
+
+    let date =
+      d.getFullYear() + "-" +
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
+
+    let div =
+      document.createElement("button");
+
+    div.className =
+      "day " +
+      (date === selectedDate ? "selected" : "");
+
+    div.innerHTML = `
+      <div class="day-name">
+        ${d.toLocaleDateString("en-GB", {
+          weekday: "short"
+        })}
+      </div>
+
+      <div class="day-number">
+        ${d.getDate()}
+      </div>
+    `;
+
+    div.onclick = function() {
+
+      selectedDate = date;
+
+      render();
+
+    };
+
+    container.appendChild(div);
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
+
+function render() {
+
+  renderDays();
+
+  document.getElementById("headerDate").innerText =
+    formatDate(selectedDate);
+
+  document.getElementById("stickyTitle").innerText =
+    formatDate(selectedDate);
+
+  renderHomework();
+  renderTests();
+  renderStudy();
+  renderProgress();
+
+}
+
+
+/* =========================================================
+   HOMEWORK
+========================================================= */
+
+function renderHomework() {
+
+  let list =
+    data.homework.filter(
+      x => x.date === selectedDate
+    );
+
+  let container =
+    document.getElementById("homeworkList");
+
+  container.innerHTML = "";
+
+  if (!list.length) {
+
+    container.innerHTML =
+      `<div class="empty">
+        No homework for this day 🎉
+      </div>`;
+
+    return;
+  }
+
+  list.forEach(item => {
+
+    container.innerHTML += createCard(
+      item,
+      "homework"
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   TESTS
+========================================================= */
+
+function renderTests() {
+
+  let list =
+    data.tests.filter(
+      x => x.date === selectedDate
+    );
+
+  let container =
+    document.getElementById("testList");
+
+  container.innerHTML = "";
+
+  if (!list.length) {
+
+    container.innerHTML =
+      `<div class="empty">
+        No tests planned for this day.
+      </div>`;
+
+    return;
+  }
+
+  list.forEach(item => {
+
+    container.innerHTML += createCard(
+      item,
+      "test"
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   STUDY
+========================================================= */
+
+function renderStudy() {
+
+  let list =
+    data.study.filter(
+      x => x.date === selectedDate
+    );
+
+  list.sort((a,b) =>
+    (a.start || "").localeCompare(b.start || "")
+  );
+
+  let container =
+    document.getElementById("studyList");
+
+  container.innerHTML = "";
+
+  if (!list.length) {
+
+    container.innerHTML =
+      `<div class="empty">
+        No study sessions planned.
+      </div>`;
+
+    return;
+  }
+
+  list.forEach(item => {
+
+    container.innerHTML += createCard(
+      item,
+      "study"
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   CARD CREATOR
+========================================================= */
+
+function createCard(item, type) {
+
+  let time = "";
+
+  if (item.start && item.end) {
+
+    time =
+      `<div class="card-time">
+        ⏰ ${item.start} – ${item.end}
+      </div>`;
+
+  }
+
+  let buttons = "";
+
+  if (type === "study" && !item.completed) {
+
+    buttons += `
+      <button class="action start"
+        onclick="startTimer('${item.id}')">
+        ▶ Start
+      </button>
+    `;
+
+  } else if (!item.completed) {
+
+    buttons += `
+      <button class="action complete"
+        onclick="completeItem('${type}','${item.id}')">
+        ✓ Done
+      </button>
+    `;
+
+  } else {
+
+    buttons += `
+      <button class="action complete"
+        onclick="completeItem('${type}','${item.id}')">
+        ✓ Completed
+      </button>
+    `;
+
+  }
+
+  buttons += `
+    <button class="action edit"
+      onclick="editItem('${type}','${item.id}')">
+      ✏️
+    </button>
+
+    <button class="action delete"
+      onclick="deleteItem('${type}','${item.id}')">
+      🗑️
+    </button>
+  `;
+
+  return `
+    <div class="card ${item.completed ? "completed" : ""}">
+
+      <div class="card-top">
+
+        <div>
+          <div class="card-title">
+            ${escapeHTML(item.title)}
+          </div>
+
+          <div class="card-subject">
+            ${escapeHTML(item.subject)}
+          </div>
+        </div>
+
+      </div>
+
+      ${time}
+
+      ${
+        item.notes
+        ?
+        `<div class="card-subject">
+          ${escapeHTML(item.notes)}
+        </div>`
+        :
+        ""
+      }
+
+      <div class="card-actions">
+        ${buttons}
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function renderProgress() {
+
+  let all = [
+    ...data.homework,
+    ...data.tests,
+    ...data.study
+  ].filter(x => x.date === selectedDate);
+
+  let completed =
+    all.filter(x => x.completed).length;
+
+  let percent =
+    all.length
+    ? Math.round(completed / all.length * 100)
+    : 0;
+
+  document.getElementById("progressFill")
+    .style.width = percent + "%";
+
+  document.getElementById("progressText")
+    .innerText =
+      `${completed} of ${all.length} completed`;
+
+  document.getElementById("progressPercent")
+    .innerText =
+      percent + "%";
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(type) {
+
+  editingId = null;
+
+  document.getElementById("modal")
+    .classList.add("show");
+
+  document.getElementById("itemType").value =
+    type || "homework";
+
+  document.getElementById("itemDate").value =
+    selectedDate;
+
+  document.getElementById("itemTitle").value = "";
+
+  document.getElementById("notes").value = "";
+
+  document.getElementById("startTime").value =
+    "17:00";
+
+  document.getElementById("endTime").value =
+    "17:30";
+
+  document.getElementById("modalTitle").innerText =
+    type === "test"
+      ? "Add test"
+      : type === "study"
+      ? "Add study session"
+      : "Add homework";
+
+  changeType();
+
+}
+
+
+function closeModal() {
+
+  document.getElementById("modal")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   TYPE CHANGE
+========================================================= */
+
+function changeType() {
+
+  let type =
+    document.getElementById("itemType").value;
+
+  let timeFields =
+    document.getElementById("timeFields");
+
+  timeFields.style.display =
+    type === "study" ? "block" : "none";
+
+  if (type === "homework") {
+
+    document.getElementById("titleLabel")
+      .innerText =
+      "What homework do you have?";
+
+  }
+
+  if (type === "test") {
+
+    document.getElementById("titleLabel")
+      .innerText =
+      "What test is it?";
+
+  }
+
+  if (type === "study") {
+
+    document.getElementById("titleLabel")
+      .innerText =
+      "What are you studying?";
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE ITEM
+========================================================= */
+
+function saveItem() {
+
+  let type =
+    document.getElementById("itemType").value;
+
+  let subject =
+    document.getElementById("subject").value;
+
+  let title =
+    document.getElementById("itemTitle")
+      .value.trim();
+
+  let notes =
+    document.getElementById("notes")
+      .value.trim();
+
+  let date =
+    document.getElementById("itemDate").value;
+
+  let start =
+    document.getElementById("startTime").value;
+
+  let end =
+    document.getElementById("endTime").value;
+
+  if (!title) {
+
+    alert("Please enter what you need to do.");
+
+    return;
+
+  }
+
+  if (!date) {
+
+    alert("Please choose a date.");
+
+    return;
+
+  }
+
+  let item = {
+
+    id: editingId || Date.now().toString(),
+
+    subject,
+
+    title,
+
+    notes,
+
+    date,
+
+    start: type === "study" ? start : "",
+
+    end: type === "study" ? end : "",
+
+    completed: false
+
+  };
+
+
+  if (editingId) {
+
+    let index =
+      data[type].findIndex(
+        x => x.id === editingId
+      );
+
+    if (index !== -1) {
+
+      item.completed =
+        data[type][index].completed;
+
+      data[type][index] = item;
+
     }
-  </script>
+
+  } else {
+
+    data[type].push(item);
+
+  }
+
+  selectedDate = date;
+
+  saveData();
+
+  closeModal();
+
+  render();
+
+}
+
+
+/* =========================================================
+   EDIT
+========================================================= */
+
+function editItem(type, id) {
+
+  let item =
+    data[type].find(x => x.id === id);
+
+  if (!item) return;
+
+  editingId = id;
+
+  document.getElementById("modal")
+    .classList.add("show");
+
+  document.getElementById("modalTitle")
+    .innerText = "Edit";
+
+  document.getElementById("itemType").value =
+    type;
+
+  document.getElementById("subject").value =
+    item.subject;
+
+  document.getElementById("itemTitle").value =
+    item.title;
+
+  document.getElementById("notes").value =
+    item.notes || "";
+
+  document.getElementById("itemDate").value =
+    item.date;
+
+  document.getElementById("startTime").value =
+    item.start || "17:00";
+
+  document.getElementById("endTime").value =
+    item.end || "17:30";
+
+  changeType();
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteItem(type, id) {
+
+  if (!confirm("Delete this item?")) return;
+
+  data[type] =
+    data[type].filter(
+      x => x.id !== id
+    );
+
+  saveData();
+
+  render();
+
+}
+
+
+/* =========================================================
+   COMPLETE
+========================================================= */
+
+function completeItem(type, id) {
+
+  let item =
+    data[type].find(x => x.id === id);
+
+  if (!item) return;
+
+  item.completed =
+    !item.completed;
+
+  saveData();
+
+  render();
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(id) {
+
+  let item =
+    data.study.find(x => x.id === id);
+
+  if (!item) return;
+
+  let start =
+    item.start.split(":");
+
+  let end =
+    item.end.split(":");
+
+  let startMinutes =
+    Number(start[0]) * 60 +
+    Number(start[1]);
+
+  let endMinutes =
+    Number(end[0]) * 60 +
+    Number(end[1]);
+
+  timerSeconds =
+    Math.max(
+      60,
+      (endMinutes - startMinutes) * 60
+    );
+
+  timerItemId = id;
+
+  timerPaused = false;
+
+  document.getElementById("timerSubject")
+    .innerText =
+    item.subject;
+
+  document.getElementById("timerTask")
+    .innerText =
+    item.title;
+
+  document.getElementById("timerScreen")
+    .classList.add("show");
+
+  updateTimerDisplay();
+
+  clearInterval(timerInterval);
+
+  timerInterval =
+    setInterval(function() {
+
+      if (timerPaused) return;
+
+      timerSeconds--;
+
+      updateTimerDisplay();
+
+      if (timerSeconds <= 0) {
+
+        clearInterval(timerInterval);
+
+        let finished =
+          data.study.find(
+            x => x.id === timerItemId
+          );
+
+        if (finished) {
+
+          finished.completed = true;
+
+          saveData();
+
+        }
+
+        alert("🎉 Study session finished!");
+
+        stopTimer();
+
+        render();
+
+      }
+
+    }, 1000);
+
+}
+
+
+function updateTimerDisplay() {
+
+  let minutes =
+    Math.floor(timerSeconds / 60);
+
+  let seconds =
+    timerSeconds % 60;
+
+  document.getElementById("timerDisplay")
+    .innerText =
+      String(minutes).padStart(2, "0")
+      + ":" +
+      String(seconds).padStart(2, "0");
+
+}
+
+
+function pauseTimer() {
+
+  timerPaused =
+    !timerPaused;
+
+  document.getElementById("pauseButton")
+    .innerText =
+      timerPaused
+      ? "▶ Resume"
+      : "⏸ Pause";
+
+}
+
+
+function stopTimer() {
+
+  clearInterval(timerInterval);
+
+  timerInterval = null;
+
+  document.getElementById("timerScreen")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+function chooseDate() {
+
+  let value =
+    document.getElementById("calendarPicker")
+      .value;
+
+  if (!value) return;
+
+  selectedDate = value;
+
+  goHome();
+
+}
+
+
+/* =========================================================
+   HTML SAFETY
+========================================================= */
+
+function escapeHTML(text) {
+
+  return String(text || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   START APP
+========================================================= */
+
+render();
+
+</script>
 
 </body>
 </html>
